@@ -16,8 +16,8 @@ canvas {
   align-self: center;
   width: fit-content;
   height: fit-content;
-  border: 2px solid black;
   border-radius: 1vw;
+  background-color: var(--color-area-grey);
 }
 
 /* FOOTER */
@@ -29,8 +29,8 @@ canvas {
   margin: 0 2vw;
   padding: 1vw 0;
 
-  border: 2px solid black;
   border-radius: 1vw;
+  background-color: var(--color-area-grey);
 }
 
 .game-area footer span {
@@ -74,6 +74,19 @@ canvas {
   color: var(--color-background);
 }
 
+/* INFO DIV */
+
+.info-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-div img {
+  width: 150px;
+  height: 50px;
+}
+
 /* AMMO INFO */
 
 .ammo-info-div {
@@ -91,9 +104,10 @@ canvas {
   box-sizing: border-box;
 
   padding: 0 5px;
+  border-radius: 10px;
   background-color: var(--color-details-white);
 
-  transition: height 0.1s linear 0.1s;
+  transition: height 0.1s linear 0.5s;
 }
 
 .ammo-info-div:hover .long-info-span {
@@ -137,6 +151,11 @@ canvas {
     font-size: 1.5vw;
   }
 
+  .info-div img {
+    width: 300px;
+    height: 100px;
+  }
+
   .ammo-info-div .long-info-span {
     left: calc(50% - 7.5vw);
     width: 15vw;
@@ -169,6 +188,10 @@ canvas {
   .ammo-info-div .long-info-span {
     left: calc(50% - 12.5vw);
     width: 25vw;
+  }
+
+  .ammo-info-div .short-info-span {
+    width: 15vw;
   }
 
   .ammo-info-div:hover .long-info-span {

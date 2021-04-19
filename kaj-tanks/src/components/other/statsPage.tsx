@@ -3,6 +3,7 @@ import { PlayerStorage } from "../../player/playerStorage";
 import {PlayerStats, sortPlayers} from "../../player/playerStats";
 import "./statsPage.css";
 import {PlayerTable} from "./playerTable";
+import {Logo} from "../logo";
 
 interface StatsPageProps {
   // returns to the previous page
@@ -61,6 +62,8 @@ export default class StatsPage extends React.Component<
       this.state.players.some(p => p.name === this.state.newPlayerName);
     return (
       <section className="stats-page">
+        <Logo width={300}/>
+
         <PlayerTable
           players={this.state.players}
           showWins={true}

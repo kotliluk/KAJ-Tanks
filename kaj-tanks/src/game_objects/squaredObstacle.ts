@@ -42,14 +42,14 @@ class SquaredObstacleColumn extends ColidingObject {
         p.getRadius() + OBSTACLE_PART_SIZE
       );
     }
-    // if the square does not exist, cannot be colided
+    // if the square does not exist, cannot be collided
     return false;
   }
 
   /**
    * Changes squares in explosion radius to false.
    */
-  private squareColide(s: string, i: number, p: Projectile): void {
+  private squareCollide(s: string, i: number, p: Projectile): void {
     // if the square exists, computes its distance from projectile
     if (s !== "") {
       const yCenter = this.yPos - (i + 0.5) * OBSTACLE_PART_SIZE;
@@ -136,15 +136,15 @@ class SquaredObstacleColumn extends ColidingObject {
     this.checkConsistency();
   }
 
-  public colide(p: Projectile): void {
-    // if the projectile is outside x boundary, cannot colide
+  public collide(p: Projectile): void {
+    // if the projectile is outside x boundary, cannot collide
     if (
       p.getXPos() + p.getExplosionRadius() < this.getXPos() ||
       p.getXPos() - p.getExplosionRadius() > this.getXPos() + OBSTACLE_PART_SIZE
     ) {
       return;
     }
-    this.squares.forEach((s, i) => this.squareColide(s, i, p));
+    this.squares.forEach((s, i) => this.squareCollide(s, i, p));
     this.checkConsistency();
   }
 
@@ -230,7 +230,7 @@ export class SquaredObstacle extends ColidingObject {
     this.filterMarginColumns();
   }
 
-  public colide(p: Projectile): void {
+  public collide(p: Projectile): void {
     // if the projectile is outside boundary rectangle, colision cannot happen
     if (
       p.getXPos() + p.getExplosionRadius() < this.getXPos() ||
@@ -242,7 +242,7 @@ export class SquaredObstacle extends ColidingObject {
       return;
     }
     // otherwise tries hit columns
-    this.columns.forEach(c => c.colide(p));
+    this.columns.forEach(c => c.collide(p));
     this.animationOn = this.columns.some(col => col.isAnimationOn());
   }
 }

@@ -16,6 +16,7 @@ import { SquaredObstacle } from "../../game_objects/squaredObstacle";
 import Tank from "../../game_objects/Tank";
 import { PlayerStats } from "../../player/playerStats";
 import { floorToHundret } from "../../utils/math";
+import logo from "../../assets/imgs/logo.svg";
 import "./gameArea.css";
 import { TankStats } from "./tankStats";
 
@@ -78,7 +79,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
   private canvas: HTMLCanvasElement;
   // @ts-ignore - canvas context
   private ctx: CanvasRenderingContext2D;
-  // @ts-ignore - ratio of current canvas size and refertial size 800x320
+  // @ts-ignore - ratio of current canvas size and referential size 800x320
   private sizeRatio: number;
   // @ts-ignore - GameArea footer
   private footer: HTMLElement;
@@ -144,8 +145,8 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     const wereProjectiles: boolean = this.projectiles.length > 0;
     // moves all projectiles
     this.projectiles.forEach(p => p.move(this.wind));
-    // colides projectiles
-    this.projectiles.forEach(p => this.colide(p));
+    // collides projectiles
+    this.projectiles.forEach(p => this.collide(p));
     // filters projectiles out of screen and exploded
     this.projectiles = this.projectiles.filter(
       p =>
@@ -240,10 +241,9 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     this.fireClicked = false;
     this.disableButtons(true);
 
-    /*const a = new Audio();
-    console.log(a.canPlayType("audio/mpeg"));
+    const a = new Audio();
     a.src = "tank_fire.mp3";
-    a.play();*/
+    a.play();
   };
 
   /**
@@ -285,7 +285,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
    * Checks whether the given projectile hits anything in the GameArea.
    * If so, explodes it.
    */
-  private colide = (p: Projectile) => {
+  private collide = (p: Projectile) => {
     if (
       // if the ground is hit
       p.getYPos() + p.getRadius() > BASE_CANVAS_HEIGHT ||
@@ -324,7 +324,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
         this.setState({}); // forces update
       }
     });
-    this.obstacles.forEach(o => o.colide(proj));
+    this.obstacles.forEach(o => o.collide(proj));
     this.explosions.push(
       new Explosion(proj.getXPos(), proj.getYPos(), proj.getExplosionRadius())
     );
@@ -393,11 +393,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
    * is set as onmousedown listener. Given onReset function is set as onmouseup
    * and onmouseleave listeners.
    */
-  private createButton(
-    text: string,
-    onTrigger: (e: Event) => void,
-    onReset: (e: Event) => void = () => {}
-  ): HTMLButtonElement {
+  private createButton(text: string, onTrigger: (e: Event) => void, onReset: (e: Event) => void = () => {}): HTMLButtonElement {
     const button = document.createElement("button");
     button.textContent = text;
     button.onmousedown = onTrigger;
@@ -424,6 +420,11 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
   private createInfoDiv(): HTMLDivElement {
     const div: HTMLDivElement = document.createElement("div");
     div.classList.add("info-div");
+    // application logo
+    const logoImg = document.createElement("img");
+    logoImg.src = logo;
+    logoImg.alt = "Tanks2D";
+    div.appendChild(logoImg);
     // current player name
     this.roundPlayerInfoDiv = document.createElement("div");
     this.roundPlayerInfoDiv.innerText = `Round: ${this.round} - Player: ${this.curTank().getName()}`;

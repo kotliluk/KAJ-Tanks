@@ -4,6 +4,7 @@ import { newEmptyPlayer, PlayerStats } from "../../player/playerStats";
 import { randomRGB } from "../../utils/color";
 import AddPlayerMenu from "./addPlayerMenu";
 import "./newGamePage.css";
+import {Logo} from "../logo";
 
 interface NewGamePageProps {
   // accepts the array of players selected for the game
@@ -94,6 +95,7 @@ export default class NewGamePage extends React.Component<
   render() {
     return (
       <section className="new-game-page">
+        <Logo width={300}/>
         <h3>New Game</h3>
         {this.state.participants.map((p, i) => {
           return (

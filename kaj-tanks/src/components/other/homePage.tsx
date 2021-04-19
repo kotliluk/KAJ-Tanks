@@ -1,5 +1,6 @@
 import * as React from "react";
 import "./homePage.css";
+import {Logo} from "../logo";
 
 interface HomePageProps {
   onNewGame: () => void;
@@ -16,7 +17,7 @@ export class HomePage extends React.Component<HomePageProps, HomePageStats> {
   render() {
     return (
       <section className="home-page">
-        <h1>Tanks 2D</h1>
+        <Logo width={300}/>
         <button onClick={this.props.onNewGame} className="menu-button">Play new game</button>
         <button onClick={this.props.onStats} className="menu-button">Statistics</button>
       </section>

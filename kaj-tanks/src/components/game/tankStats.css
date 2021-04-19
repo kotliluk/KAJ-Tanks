@@ -2,8 +2,9 @@
   width: 20vw;
   padding: 1vw;
   margin: 0.5vw;
-  border: 2px solid black;
+
   border-radius: 10px;
+  background-color: var(--color-area-grey);
   font-size: 2vw;
 }
 

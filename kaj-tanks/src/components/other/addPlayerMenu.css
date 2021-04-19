@@ -1,0 +1,69 @@
+.add-player-menu {
+  width: 400px;
+  padding: 10px;
+  margin: 10px;
+
+  border: 2px solid black;
+  border-radius: 10px;
+
+  font-size: 20px;
+}
+
+.add-player-menu header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-player-menu header h4 {
+  margin: 0 10px 10px 10px;
+  display: inline-block;
+}
+
+.add-player-menu header button {
+  margin: 0 10px 10px 10px;
+  display: inline-block;
+  visibility: hidden;
+  cursor: pointer;
+
+  background-color: transparent;
+  border: none;
+
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.add-player-menu:hover header button {
+  visibility: visible;
+}
+
+.add-player-menu header button:hover {
+  color: red;
+}
+
+.add-player-menu label {
+  display: inline-block;
+  width: 60px;
+}
+
+.add-player-menu input[type="text"] {
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+.add-player-menu input[type="color"] {
+  height: 26px;
+  padding: 0 1px;
+  background-color: black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.add-player-menu select {
+  padding: 0 1px;
+  font-size: 20px;
+  background-color: #666;
+  border: none;
+  border-bottom: 2px solid black;
+}

@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+}
+
+:focus {
+  outline: none;
+}
+
+.menu-button {
+  height: 24px;
+  margin: 1px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background-color: red;
+}
+
+.menu-button:disabled {
+  background-color: grey;
+}

@@ -1,0 +1,177 @@
+.game-area {
+  display: flex;
+  flex-direction: column;
+  font-size: 2vw;
+}
+
+/* CANVAS */
+
+canvas {
+  background-color: #61bbdf;
+}
+
+.canvas-container {
+  padding: 1vw;
+  margin: 0.5vw;
+  align-self: center;
+  width: fit-content;
+  height: fit-content;
+  border: 2px solid black;
+  border-radius: 1vw;
+}
+
+/* FOOTER */
+
+.game-area footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2vw;
+  padding: 1vw 0;
+
+  border: 2px solid black;
+  border-radius: 1vw;
+}
+
+.game-area footer span {
+  width: 10vw;
+  display: inline-block;
+}
+
+.game-area footer > div {
+  display: flex;
+  flex-direction: column;
+
+  width: 30%;
+
+  text-align: center;
+}
+
+.game-area footer::after {
+  content: "";
+  clear: both;
+}
+
+/* ARROW BUTTONS */
+
+.move-gun-div button,
+.ammo-div button {
+  height: 2vw;
+  width: 1.5vw;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 2vw;
+}
+
+.move-gun-div button:hover,
+.ammo-div button:hover {
+  color: red;
+}
+
+.move-gun-div button:disabled,
+.ammo-div button:disabled {
+  color: grey;
+}
+
+/* AMMO INFO */
+
+.ammo-info-div {
+  position: relative;
+  display: inline-block;
+}
+
+.ammo-info-div .long-info-span {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: calc(50% - 10vw);
+  height: 0;
+  width: 20vw;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  padding: 0 5px;
+  background-color: white;
+
+  transition: height 0.1s linear 0.1s;
+}
+
+.ammo-info-div:hover .long-info-span {
+  height: 9.5vw;
+}
+
+.fire-div button {
+  font-size: 2vw;
+  font-weight: bold;
+  border-radius: 1vw;
+  border: none;
+  background-color: black;
+  color: white;
+}
+
+.fire-div button:hover {
+  background-color: red;
+}
+
+.fire-div button:disabled {
+  background-color: grey;
+}
+
+/* TANK STATS */
+
+.tank-stats-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 1400px) {
+  .game-area {
+    font-size: 1.5vw;
+  }
+
+  .game-area button {
+    font-size: 1.5vw;
+  }
+
+  .ammo-info-div .long-info-span {
+    left: calc(50% - 7.5vw);
+    width: 15vw;
+  }
+
+  .ammo-info-div:hover .long-info-span {
+    height: 7vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .game-area {
+    font-size: 2.5vw;
+  }
+
+  .game-area button {
+    font-size: 2.5vw;
+  }
+
+  .info-div {
+    display: none !important;
+    width: 0;
+  }
+
+  .move-gun-div,
+  .ammo-fire-div {
+    width: 45% !important;
+  }
+
+  .ammo-info-div .long-info-span {
+    left: calc(50% - 12.5vw);
+    width: 25vw;
+  }
+
+  .ammo-info-div:hover .long-info-span {
+    height: 12vw;
+  }
+}

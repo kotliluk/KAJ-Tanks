@@ -1,0 +1,47 @@
+.stats-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats-page.modal-visible {
+  filter: blur(3px);
+  transition: filter 0.5s ease;
+}
+
+body.modal-visible {
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.stats-page.modal-visible .modal {
+  visibility: visible;
+}
+
+.modal-content {
+  max-width: 500px;
+  max-height: 300px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid black;
+  transform: scale(0);
+  transition: transform 0.5s ease-in-out;
+}
+.stats-page.modal-visible .modal-content {
+  transform: scale(1);
+}

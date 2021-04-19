@@ -1,0 +1,58 @@
+.tank-stats {
+  width: 20vw;
+  padding: 1vw;
+  margin: 0.5vw;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 2vw;
+}
+
+.tank-stats div {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.tank-stats > div > span:first-of-type {
+  display: inline-block;
+  width: 14vw;
+
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.tank-stats > div > span:last-of-type {
+  display: inline-block;
+  width: 6vw;
+
+  text-align: right;
+}
+
+.tank-stats > div:first-of-type > span:first-of-type {
+  font-weight: bold;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 1400px) {
+  .tank-stats {
+    font-size: 1.5vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .tank-stats {
+    width: 40vw;
+    padding: 2vw;
+    margin: 1vw 1vw 0 1vw;
+    font-size: 2.5vw;
+  }
+
+  .tank-stats > div > span:first-of-type {
+    width: 28vw;
+  }
+
+  .tank-stats > div > span:last-of-type {
+    width: 12vw;
+  }
+}

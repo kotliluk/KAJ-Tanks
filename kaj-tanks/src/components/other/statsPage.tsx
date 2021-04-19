@@ -1,8 +1,8 @@
-import * as React from "react";
+import React, {ChangeEvent} from "react";
 import { PlayerStorage } from "../../player/playerStorage";
-import { PlayerStats } from "../../player/playerStats";
+import {PlayerStats, sortPlayers} from "../../player/playerStats";
 import "./statsPage.css";
-import {ChangeEvent} from "react";
+import {PlayerTable} from "./playerTable";
 
 interface StatsPageProps {
   // returns to the previous page
@@ -12,7 +12,6 @@ interface StatsPageProps {
 interface StatsPageState {
   players: PlayerStats[];
   newPlayerName: string;
-  isShowingDialog: boolean;
 }
 
 /**
@@ -21,19 +20,13 @@ interface StatsPageState {
 export default class StatsPage extends React.Component<
   StatsPageProps,
   StatsPageState
-> {
-
-  private readonly sectionRef: React.RefObject<HTMLDivElement>;
-
+  > {
   constructor(props: StatsPageProps) {
     super(props);
     this.state = {
-      players: PlayerStorage.getStoredPlayers(),
-      newPlayerName: "",
-      isShowingDialog: false
+      players: sortPlayers(PlayerStorage.getStoredPlayers()),
+      newPlayerName: ""
     };
-
-    this.sectionRef = React.createRef<HTMLDivElement>();
   }
 
   /**
@@ -67,17 +60,14 @@ export default class StatsPage extends React.Component<
       this.state.newPlayerName === "" ||
       this.state.players.some(p => p.name === this.state.newPlayerName);
     return (
-      <div className="stats-page" ref={this.sectionRef}>
-        {this.state.players.map(p => {
-          return (
-            <div key={p.id}>
-              {`(${p.id}) ${p.name}: ${p.wins} wins, ${p.loses} loses`}
-              <button onClick={() => this.handleDeletePlayer(p.id)} className="menu-button">
-                Delete
-              </button>
-            </div>
-          );
-        })}
+      <div className="stats-page">
+        <PlayerTable
+          players={this.state.players}
+          showWins={true}
+          showDelete={true}
+          onDelete={this.handleDeletePlayer}
+        />
+
         <form>
           <label htmlFor={"new-player-input"}>New player:</label>
           <input
@@ -86,10 +76,9 @@ export default class StatsPage extends React.Component<
             value={this.state.newPlayerName}
             onChange={this.handleNewPlayerNameChange}
           />
-          <button onClick={this.handleAddNewPlayer} disabled={disabled}>
-            Add
-          </button>
+          <button onClick={this.handleAddNewPlayer} className="menu-button" disabled={disabled}>Create</button>
         </form>
+
         <button onClick={this.props.onBack} className="menu-button">Back</button>
       </div>
     );

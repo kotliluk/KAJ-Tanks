@@ -22,4 +22,5 @@ body {
 
 .menu-button:disabled {
   background-color: grey;
+  cursor: default;
 }

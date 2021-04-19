@@ -17,8 +17,8 @@ export class HomePage extends React.Component<HomePageProps, HomePageStats> {
     return (
       <section className="home-page">
         <h1>Tanks 2D</h1>
-        <button onClick={this.props.onNewGame}>Play new game</button>
-        <button onClick={this.props.onStats}>Statistics</button>
+        <button onClick={this.props.onNewGame} className="menu-button">Play new game</button>
+        <button onClick={this.props.onStats} className="menu-button">Statistics</button>
       </section>
     );
   }

@@ -66,12 +66,12 @@ canvas {
 
 .move-gun-div button:hover,
 .ammo-div button:hover {
-  color: red;
+  color: var(--color-details-red);
 }
 
 .move-gun-div button:disabled,
 .ammo-div button:disabled {
-  color: grey;
+  color: var(--color-background);
 }
 
 /* AMMO INFO */
@@ -91,7 +91,7 @@ canvas {
   box-sizing: border-box;
 
   padding: 0 5px;
-  background-color: white;
+  background-color: var(--color-details-white);
 
   transition: height 0.1s linear 0.1s;
 }
@@ -105,16 +105,16 @@ canvas {
   font-weight: bold;
   border-radius: 1vw;
   border: none;
-  background-color: black;
-  color: white;
+  background-color: var(--color-area-black);
+  color: var(--color-details-white);
 }
 
 .fire-div button:hover {
-  background-color: red;
+  background-color: var(--color-details-red);
 }
 
 .fire-div button:disabled {
-  background-color: grey;
+  background-color: var(--color-background);
 }
 
 /* TANK STATS */

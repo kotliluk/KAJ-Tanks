@@ -60,7 +60,7 @@ export default class StatsPage extends React.Component<
       this.state.newPlayerName === "" ||
       this.state.players.some(p => p.name === this.state.newPlayerName);
     return (
-      <div className="stats-page">
+      <section className="stats-page">
         <PlayerTable
           players={this.state.players}
           showWins={true}
@@ -74,13 +74,16 @@ export default class StatsPage extends React.Component<
             type="text"
             id={"new-player-input"}
             value={this.state.newPlayerName}
+            placeholder="name"
+            maxLength={20}
+            spellCheck={false}
             onChange={this.handleNewPlayerNameChange}
           />
           <button onClick={this.handleAddNewPlayer} className="menu-button" disabled={disabled}>Create</button>
         </form>
 
         <button onClick={this.props.onBack} className="menu-button">Back</button>
-      </div>
+      </section>
     );
   }
 }

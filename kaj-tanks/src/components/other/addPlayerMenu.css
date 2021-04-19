@@ -3,10 +3,18 @@
   padding: 10px;
   margin: 10px;
 
-  border: 2px solid black;
   border-radius: 10px;
+  background-color: var(--color-area-grey);
+  color: var(--color-details-white);
 
   font-size: 20px;
+}
+
+.add-player-menu div {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }
 
 .add-player-menu header {
@@ -15,12 +23,12 @@
 }
 
 .add-player-menu header h4 {
-  margin: 0 10px 10px 10px;
+  margin: 0 5px 5px 5px;
   display: inline-block;
 }
 
 .add-player-menu header button {
-  margin: 0 10px 10px 10px;
+  margin: 0 5px 5px 5px;
   display: inline-block;
   visibility: hidden;
   cursor: pointer;
@@ -37,12 +45,12 @@
 }
 
 .add-player-menu header button:hover {
-  color: red;
+  color: var(--color-details-red);
 }
 
 .add-player-menu label {
   display: inline-block;
-  width: 60px;
+  width: 65px;
 }
 
 .add-player-menu input[type="text"] {
@@ -50,12 +58,14 @@
   background-color: transparent;
   border: none;
   border-bottom: 2px solid black;
+  color: var(--color-details-white);
 }
 
 .add-player-menu input[type="color"] {
   height: 26px;
-  padding: 0 1px;
-  background-color: black;
+  padding: 2px 1px 0 1px;
+  background-color: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -63,7 +73,8 @@
 .add-player-menu select {
   padding: 0 1px;
   font-size: 20px;
-  background-color: #666;
+  background-color: var(--color-area-grey);
+  color: var(--color-details-white);
   border: none;
   border-bottom: 2px solid black;
 }

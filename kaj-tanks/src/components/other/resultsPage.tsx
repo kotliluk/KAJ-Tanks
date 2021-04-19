@@ -1,5 +1,7 @@
 import * as React from "react";
-import { PlayerStats } from "../../player/playerStats";
+import {PlayerStats, sortPlayers} from "../../player/playerStats";
+import {PlayerTable} from "./playerTable";
+import "./resultPage.css"
 
 interface ResultsPageProps {
   // array of player results from the game.
@@ -18,18 +20,15 @@ export class ResultsPage extends React.Component<
   ResultsPageState
 > {
   render() {
+    const players = sortPlayers(this.props.players);
     return (
-      <section>
-        {this.props.players.map(p => {
-          return (
-            <p key={p.id}>
-              {`${p.name}: ${p.wins === 1 ? "winner" : "loser"}
-              Damage dealt: ${p.dmgDealt}
-              Damage received: ${p.dmgReceived}`}
-            </p>
-          );
-        })}
-        <button onClick={this.props.onBack}>Back</button>
+      <section className="result-page">
+        <PlayerTable
+          players={players}
+          showWins={false}
+          showDelete={false}
+        />
+        <button onClick={this.props.onBack} className="menu-button">Back</button>
       </section>
     );
   }

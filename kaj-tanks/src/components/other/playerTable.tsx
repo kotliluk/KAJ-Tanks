@@ -23,6 +23,7 @@ export class PlayerTable extends React.Component<PlayerTableProps, any> {
       <table>
         <thead>
           <tr>
+            <th/>
             <th>Name:</th>
             {this.props.showWins && <th>Wins:</th>}
             <th>Kills:</th>
@@ -32,8 +33,9 @@ export class PlayerTable extends React.Component<PlayerTableProps, any> {
           </tr>
         </thead>
         <tbody>
-        {this.props.players.map(p => (
+        {this.props.players.map((p, i) => (
           <tr key={p.id}>
+            <td>{i + 1}</td>
             <td>{p.name}</td>
             {this.props.showWins && <td>{Math.floor(winRatio(p) * 100)}% ({p.wins}/{p.wins + p.loses})</td>}
             <td>{p.kills}</td>

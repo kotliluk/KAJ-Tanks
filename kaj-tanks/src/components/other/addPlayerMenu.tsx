@@ -10,7 +10,7 @@ interface AddPlayerMenuProps {
   player: PlayerStats;
   // array of stored players to select from (or undefined, if menu shows quick player)
   availableStoredPlayers: PlayerStats[] | undefined;
-  // handler of changing information about the displayer player
+  // handler of changing information about the displayed player
   onPlayerChange: (player: PlayerStats) => void;
   // handler of removing the menu
   onRemove: () => void;

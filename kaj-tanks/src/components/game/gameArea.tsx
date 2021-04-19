@@ -240,10 +240,10 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     this.fireClicked = false;
     this.disableButtons(true);
 
-    const a = new Audio();
+    /*const a = new Audio();
     console.log(a.canPlayType("audio/mpeg"));
     a.src = "tank_fire.mp3";
-    a.play();
+    a.play();*/
   };
 
   /**

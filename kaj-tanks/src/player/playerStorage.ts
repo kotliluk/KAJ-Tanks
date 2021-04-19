@@ -47,7 +47,7 @@ export class PlayerStorage {
    */
   public static getStoredPlayers(): PlayerStats[] {
     if (PlayerStorage.storageSupported) {
-      return PlayerStorage.players;
+      return [...PlayerStorage.players];
     }
     return [];
   }

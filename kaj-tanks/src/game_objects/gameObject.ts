@@ -7,8 +7,6 @@ export default abstract class GameObject {
   protected xPos: number = 0;
   protected yPos: number = 0;
 
-  public constructor() {}
-
   public setColor(color: string) {
     this.color = color;
   }

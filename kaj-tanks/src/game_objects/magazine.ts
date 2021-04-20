@@ -3,7 +3,7 @@ import { mod } from "../utils/math";
 import Projectile, { ProjectileStats } from "./Projectile";
 
 enum ProjIndex {
-  STANDART,
+  STANDARD,
   BIG,
   MULTI,
 
@@ -17,8 +17,8 @@ type ProjInfo = ProjectileStats & {
 
 const PROJ_INFOS: ProjInfo[] = [
   {
-    name: "Standart",
-    description: "Standart ammo",
+    name: "Standard",
+    description: "Standard ammo",
     radius: 2,
     speed: 1,
     explosionRadius: 25,
@@ -49,7 +49,7 @@ const PROJ_DESCRIPTIONS: string[] = PROJ_INFOS.map(info => {
     info.description +
     "\nDamage: " +
     info.damage +
-    "\nSpeed coeficient: " +
+    "\nSpeed coefficient: " +
     info.speed +
     "\nExplosion: " +
     info.explosionRadius
@@ -58,6 +58,7 @@ const PROJ_DESCRIPTIONS: string[] = PROJ_INFOS.map(info => {
 
 const MULTI_COUNT: number = 5;
 const MULTI_ANGLE_ERRORS: number[] = [-11, -9, -7, -5, -3, 0, 3, 5, 7, 9, 11];
+export const LARGEST_PROJ_DMG = Math.max(...PROJ_INFOS.map(i => i.damage));
 
 /**
  * Tank magazine with projectiles. Provides projectile management.
@@ -88,7 +89,7 @@ export default class Magazine {
         return new Projectile(playerId, PROJ_INFOS[ProjIndex.MULTI], ae);
       });
     } else {
-      return [new Projectile(playerId, PROJ_INFOS[ProjIndex.STANDART])];
+      return [new Projectile(playerId, PROJ_INFOS[ProjIndex.STANDARD])];
     }
   }
 
@@ -96,7 +97,7 @@ export default class Magazine {
    * Returns short string description of the current selected projectile type.
    */
   public getCurrentProjectileShortStats(): string {
-    if (this.curIndex === ProjIndex.STANDART) {
+    if (this.curIndex === ProjIndex.STANDARD) {
       return PROJ_INFOS[this.curIndex].name;
     }
     return `${PROJ_INFOS[this.curIndex].name} (${

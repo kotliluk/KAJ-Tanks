@@ -1,5 +1,7 @@
 import { euclideanDistance } from "../utils/math";
 import GameObject from "./gameObject";
+import {AudioPlayer} from "../utils/audioPlayer";
+import {LARGEST_PROJ_DMG} from "./magazine";
 
 export interface ProjectileStats {
   radius: number;
@@ -77,6 +79,7 @@ export default class Projectile extends GameObject {
   }
 
   public explode(): void {
+    AudioPlayer.explosionSound(this.damage / LARGEST_PROJ_DMG);
     this.exploded = true;
   }
 
@@ -102,7 +105,7 @@ export default class Projectile extends GameObject {
     }
     this.angleSin = Math.sin((angle * Math.PI) / 180);
     this.xPos = xInit;
-    this.yPos = xInit;
+    this.yPos = yInit;
     this.windXDiff = 0;
   }
 
@@ -166,9 +169,7 @@ export default class Projectile extends GameObject {
     if (this.xPos < minX && this.windXDiff < 0) {
       return false;
     }
-    if (this.xPos > maxX && this.windXDiff > 0) {
-      return false;
-    }
-    return true;
+    return !(this.xPos > maxX && this.windXDiff > 0);
+
   }
 }

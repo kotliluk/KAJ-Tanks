@@ -1,12 +1,14 @@
 import * as React from "react";
-import { PlayerStats, newEmptyPlayer } from "../player/playerStats";
+import { PlayerStats } from "../player/playerStats";
 import { PlayerStorage } from "../player/playerStorage";
 import { GameArea } from "./game/gameArea";
-import { HomePage } from "./other/homePage";
-import NewGamePage from "./other/newGamePage";
-import { ResultsPage } from "./other/resultsPage";
-import StatsPage from "./other/statsPage";
+import { HomePage } from "./screens/homePage";
+import NewGamePage from "./screens/newGamePage";
+import { ResultsPage } from "./screens/resultsPage";
+import StatsPage from "./screens/statsPage";
 import "./tankGame.css";
+import {Logo} from "./logo";
+import {AudioPlayer} from "../utils/audioPlayer";
 
 /**
  * Current screen content.
@@ -26,6 +28,7 @@ interface TankGameProps {
 interface TankGameState {
   screen: ScreenType;
   currentPlayers: PlayerStats[];
+  backgroundMusic: boolean;
 }
 
 /**
@@ -35,14 +38,21 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
   constructor(props: TankGameProps) {
     super(props);
     this.state = {
-      screen: ScreenType.STATS,
-      currentPlayers: [
-        /*newEmptyPlayer(-1, "Lukas", "#000000"),
-        newEmptyPlayer(-2, "Pepa", "#ffffff"),
-        newEmptyPlayer(-3, "CCC", "#000000"),
-        newEmptyPlayer(-4, "DDDD", "#ffffff")*/
-      ]
+      screen: ScreenType.HOME,
+      currentPlayers: [],
+      backgroundMusic: false
     };
+  }
+
+  private toggleBackgroundMusic = () => {
+    const newState = !this.state.backgroundMusic;
+    this.setState({backgroundMusic: newState});
+    if (newState) {
+      AudioPlayer.startBackgroundMusic();
+    }
+    else {
+      AudioPlayer.pauseBackgroundMusic();
+    }
   }
 
   private renderHomePage = () => {
@@ -64,9 +74,10 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
     return (
       <NewGamePage
         onBack={() => this.setState({ screen: ScreenType.HOME })}
-        onSubmit={players =>
-          this.setState({ screen: ScreenType.GAME, currentPlayers: players })
-        }
+        onSubmit={players => {
+          AudioPlayer.pauseBackgroundMusic();
+          this.setState({ screen: ScreenType.GAME, currentPlayers: players });
+        }}
       />
     );
   };
@@ -77,6 +88,9 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
         id={this.props.id}
         players={this.state.currentPlayers}
         onEnd={players => {
+          if (this.state.backgroundMusic) {
+            AudioPlayer.startBackgroundMusic();
+          }
           players.forEach(p => PlayerStorage.updatePlayer(p));
           this.setState({
             screen: ScreenType.RESULTS,
@@ -99,6 +113,14 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
   render() {
     return (
       <main>
+        {this.state.screen !== ScreenType.GAME && (
+          <header>
+            <Logo width={300}/>
+            <button onClick={this.toggleBackgroundMusic} className="menu-button">
+              {"Music " + (this.state.backgroundMusic ? "on" : "off")}
+            </button>
+          </header>
+        )}
         {this.state.screen === ScreenType.HOME && this.renderHomePage()}
         {this.state.screen === ScreenType.STATS && this.renderStats()}
         {this.state.screen === ScreenType.NEW_GAME && this.renderNewGamePage()}

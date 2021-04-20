@@ -19,6 +19,7 @@ import { floorToHundret } from "../../utils/math";
 import logo from "../../assets/imgs/logo.svg";
 import "./gameArea.css";
 import { TankStats } from "./tankStats";
+import {AudioPlayer} from "../../utils/audioPlayer";
 
 /**
  * Init obstacle and tank positions for 2, 3 and 4 players (on 0, 1, 2 index).
@@ -207,7 +208,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
       // checks whether the move is valid
       const newLeft = tank.getXPos() + this.movement;
       const newRight = tank.getXPos() + BASE_TANK_WIDTH + this.movement;
-      // true if no other tank is hit...
+      // true if no screens tank is hit...
       const tanksOk = this.state.tanks
         .filter((_, i) => i !== this.curTankIdx)
         .every(t => {
@@ -241,9 +242,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     this.fireClicked = false;
     this.disableButtons(true);
 
-    const a = new Audio();
-    a.src = "tank_fire.mp3";
-    a.play();
+    AudioPlayer.shotSound();
   };
 
   /**
@@ -310,7 +309,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
         tank.isAlive() &&
         centerDistance(tank, proj) < proj.getExplosionRadius()
       ) {
-        // adds kill if the targer was destroyed and it is not itself
+        // adds kill if the target was destroyed and it is not itself
         if (
           tank.receiveDamage(proj.getDamage()) &&
           originTank.getId() !== tank.getId()
@@ -557,8 +556,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
       // adding obstacle
       if (pos.o) {
         this.obstacles.push(
-          // TODO
-          obstacleFactory.house(distance * (i + 0.5), BASE_CANVAS_HEIGHT)
+          obstacleFactory.random(distance * (i + 0.5), BASE_CANVAS_HEIGHT)
         );
       }
       // setting tank position

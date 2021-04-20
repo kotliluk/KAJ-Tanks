@@ -1,0 +1,80 @@
+.add-player-menu {
+  width: 400px;
+  padding: 10px;
+  margin: 10px;
+
+  border-radius: 10px;
+  background-color: var(--color-area-grey);
+  color: var(--color-details-white);
+
+  font-size: 20px;
+}
+
+.add-player-menu div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.add-player-menu header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-player-menu header h4 {
+  margin: 0 5px 5px 5px;
+  display: inline-block;
+}
+
+.add-player-menu header button {
+  margin: 0 5px 5px 5px;
+  display: inline-block;
+  visibility: hidden;
+  cursor: pointer;
+
+  background-color: transparent;
+  border: none;
+
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.add-player-menu:hover header button {
+  visibility: visible;
+}
+
+.add-player-menu header button:hover {
+  color: var(--color-details-red);
+}
+
+.add-player-menu label {
+  display: inline-block;
+  width: 65px;
+}
+
+.add-player-menu input[type="text"] {
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid black;
+  color: var(--color-details-white);
+}
+
+.add-player-menu input[type="color"] {
+  height: 26px;
+  padding: 2px 1px 0 1px;
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.add-player-menu select {
+  padding: 0 1px;
+  font-size: 20px;
+  background-color: var(--color-area-grey);
+  color: var(--color-details-white);
+  border: none;
+  border-bottom: 2px solid black;
+}

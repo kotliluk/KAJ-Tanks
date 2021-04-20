@@ -1,4 +1,5 @@
 import React from "react";
+import {AudioPlayer} from "../utils/audioPlayer";
 
 interface LogoProps {
   // default width is 150px
@@ -29,7 +30,7 @@ export class Logo extends React.Component<LogoProps, LogoState> {
       if (t !== undefined) {
         clearInterval(t);
       }
-    })
+    });
   }
 
   private shootGrenade = (i: number) => {
@@ -37,9 +38,7 @@ export class Logo extends React.Component<LogoProps, LogoState> {
       const timeouts = this.state.timeouts;
       timeouts[i] = setTimeout(() => this.returnGrenade(i), 5000);
 
-      const a = new Audio();
-      a.src = "tank_fire.mp3";
-      a.play();
+      AudioPlayer.shotSound();
 
       this.setState({timeouts: timeouts });
     }

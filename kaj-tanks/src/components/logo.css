@@ -1,0 +1,8 @@
+.ellipse-shot {
+    animation: shot 3s linear 1;
+}
+
+@keyframes shot {
+    from {transform: translateX(0)}
+    to   {transform: translateX(-100vw)}
+}

@@ -82,7 +82,9 @@ export default class AddPlayerMenu extends React.Component<
               id={"name-input-player-" + this.props.index}
               value={this.props.player.name}
               onChange={this.handleNameChange}
+              placeholder="fill your name"
               spellCheck={false}
+              autoComplete={"off"}
               maxLength={20}
             />
           </div>

@@ -47,11 +47,6 @@ canvas {
   text-align: center;
 }
 
-.game-area footer::after {
-  content: "";
-  clear: both;
-}
-
 /* ARROW BUTTONS */
 
 .move-gun-div button,

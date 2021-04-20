@@ -47,7 +47,7 @@ export default class NewGamePage extends React.Component<
    */
   private handleAddQuickPlayer = (): void => {
     const id = this.state.minUsedId - 1;
-    this.state.participants.push(newEmptyPlayer(id, "Player", randomRGB()));
+    this.state.participants.push(newEmptyPlayer(id, "", randomRGB()));
     this.setState({ minUsedId: id });
   };
 
@@ -92,6 +92,8 @@ export default class NewGamePage extends React.Component<
   };
 
   render() {
+    const playersCountError = this.state.participants.length < minPlayers;
+    const nameError = this.state.participants.some(p => p.name === "");
     return (
       <section className="new-game-page">
         <h3>New Game</h3>
@@ -102,7 +104,7 @@ export default class NewGamePage extends React.Component<
               index={i}
               player={p}
               availableStoredPlayers={
-                // for the single menu, the selected player is available too
+                // for the concrete menu, the selected player is available too
                 p.id < 0 ? undefined : [p, ...this.state.availableStored]
               }
               onPlayerChange={player => this.handlePlayerChange(player, i)}
@@ -123,9 +125,11 @@ export default class NewGamePage extends React.Component<
           className="menu-button">Back</button>
           <button
             onClick={() => this.props.onSubmit(this.state.participants)}
-            disabled={this.state.participants.length < minPlayers}
+            disabled={playersCountError || nameError}
             className="menu-button">
-            Play
+            {!playersCountError && !nameError && <span>Play</span>}
+            {playersCountError && <span>Please, add at least {minPlayers} players</span>}
+            {nameError && !playersCountError && <span>Please, fill all names</span>}
           </button>
         </div>
       </section>

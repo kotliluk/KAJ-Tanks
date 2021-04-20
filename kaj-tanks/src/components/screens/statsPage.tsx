@@ -75,9 +75,10 @@ export default class StatsPage extends React.Component<
             type="text"
             id={"new-player-input"}
             value={this.state.newPlayerName}
-            placeholder="name"
+            placeholder="fill your name"
             maxLength={20}
             spellCheck={false}
+            autoComplete={"off"}
             onChange={this.handleNewPlayerNameChange}
           />
           <button onClick={this.handleAddNewPlayer} className="menu-button" disabled={disabled}>Create</button>

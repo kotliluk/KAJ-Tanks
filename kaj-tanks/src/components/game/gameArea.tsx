@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   TANK_MOVEMENT_SPEED,
   BASE_CANVAS_HEIGHT,
-  UPDATE_RATE,
   BASE_CANVAS_WIDTH,
   GUN_MOVEMENT_SPEED,
   BASE_TANK_WIDTH,
@@ -115,8 +114,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
   // number of the current round (increased after shot of all players)
   private round: number = 1;
 
-  // @ts-ignore - update interval id
-  private updateIntervalId:  NodeJS.Timeout;
+  private lastUpdateTime: number = 0;
 
   public constructor(props: GameAreaProps) {
     super(props);
@@ -136,16 +134,21 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
    * Update loop.
    */
   private update = (): void => {
+    // computes time diff
+    const t = Date.now();
+    const dt = t - this.lastUpdateTime;
+    this.lastUpdateTime = t;
+
     // clears the canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     // moves current tank
-    this.moveTank();
+    this.moveTank(dt);
     // moves current tank gun
-    this.curTank().moveGun(this.gunMovement);
+    this.curTank().moveGun(this.gunMovement * dt);
     // saves whether there were any projectiles
     const wereProjectiles: boolean = this.projectiles.length > 0;
     // moves all projectiles
-    this.projectiles.forEach(p => p.move(this.wind));
+    this.projectiles.forEach(p => p.move(this.wind, dt));
     // collides projectiles
     this.projectiles.forEach(p => this.collide(p));
     // filters projectiles out of screen and exploded
@@ -154,7 +157,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
         p.canReturnToRange(0, BASE_CANVAS_WIDTH, BASE_CANVAS_HEIGHT) &&
         !p.isExploded()
     );
-    // filters destoyed obstacles
+    // filters destroyed obstacles
     this.obstacles = this.obstacles.filter(o => o.getColumnsCount() > 0);
     // filters finished explosions
     this.explosions = this.explosions.filter(e => e.isAnimationOn());
@@ -181,6 +184,8 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     const isAnimation: boolean =
       this.obstacles.some(o => o.isAnimationOn()) ||
       this.explosions.some(e => e.isAnimationOn());
+    // true if the game has not ended yet
+    let gameInProgress = true;
     // when fire button was pressed
     if (this.fireClicked) {
       this.fire();
@@ -188,6 +193,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     // if there is only 0 or 1 alive tanks left, ends game
     else if (this.state.tanks.filter(t => t.isAlive()).length < 2) {
       this.endGame();
+      gameInProgress = false;
     }
     // when last active projective disapeared and there is no animation
     else if (this.projectiles.length === 0 && wereProjectiles && !isAnimation) {
@@ -197,17 +203,23 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     else if (!isAnimation && wasAnimation && this.projectiles.length === 0) {
       this.nextRound();
     }
+    if (gameInProgress) {
+      requestAnimationFrame(this.update);
+    }
   };
 
   /**
    * Moves the current tank if the move is valid.
+   *
+   * @param dt time delta in ms
    */
-  private moveTank(): void {
+  private moveTank(dt: number): void {
     const tank: Tank = this.curTank();
     if (this.movement !== 0) {
+      const movement = this.movement * dt;
       // checks whether the move is valid
-      const newLeft = tank.getXPos() + this.movement;
-      const newRight = tank.getXPos() + BASE_TANK_WIDTH + this.movement;
+      const newLeft = tank.getXPos() + movement;
+      const newRight = tank.getXPos() + BASE_TANK_WIDTH + movement;
       // true if no screens tank is hit...
       const tanksOk = this.state.tanks
         .filter((_, i) => i !== this.curTankIdx)
@@ -227,7 +239,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
         });
       const rangeOk = obstaclesOk && newLeft >= 0 && newRight < BASE_CANVAS_WIDTH;
       if (rangeOk) {
-        this.curTank().diffXPos(this.movement);
+        this.curTank().diffXPos(movement);
       }
     }
   }
@@ -334,7 +346,6 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
    * player stats to parent.
    */
   private endGame = () => {
-    clearInterval(this.updateIntervalId);
     const players = this.state.tanks.map(t => t.getPlayer());
     const winner = this.state.tanks.find(t => t.isAlive());
     let winnerId = NaN;
@@ -602,8 +613,8 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     gameArea.insertAdjacentElement("afterbegin", this.footer);
     gameArea.insertAdjacentElement("afterbegin", canvasContainer);
 
-    // set update interval
-    this.updateIntervalId = setInterval(this.update, UPDATE_RATE);
+    this.lastUpdateTime = Date.now();
+    requestAnimationFrame(this.update);
   }
 
   /**

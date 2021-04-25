@@ -111,9 +111,12 @@ export default class Projectile extends GameObject {
 
   /**
    * Updates projectile position and effect of the wind.
+   *
+   * @param wind wind value
+   * @param dt time delta
    */
-  public move(wind: number) {
-    ++this.t;
+  public move(wind: number, dt: number) {
+    this.t += dt / 16;
     const xPrev = this.xPos;
     const yPrev = this.yPos;
 

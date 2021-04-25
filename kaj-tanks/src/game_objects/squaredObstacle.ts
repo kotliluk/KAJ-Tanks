@@ -1,4 +1,4 @@
-import {BASE_GROUND_START, BASE_CANVAS_HEIGHT, OBSTACLE_PART_SIZE} from "../constants/constants";
+import {OBSTACLE_PART_SIZE} from "../constants/constants";
 import { euclideanDistance } from "../utils/math";
 import { ColidingObject } from "./colidingObject";
 import Projectile from "./projectile";

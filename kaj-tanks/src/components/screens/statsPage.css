@@ -75,3 +75,27 @@
   color: var(--color-details-white);
   font-size: 16px;
 }
+
+.stats-page > form > div {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.stats-page > form > div > span {
+  position: absolute;
+  visibility: hidden;
+  top: calc(100% + 4px);
+
+  width: auto;
+  white-space: nowrap;
+
+  background-color: var(--color-area-grey);
+  border: 1px solid var(--color-area-black);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.stats-page > form > div:hover > span {
+  visibility: visible;
+}

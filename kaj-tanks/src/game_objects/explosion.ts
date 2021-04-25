@@ -30,9 +30,9 @@ export default class Explosion extends GameObject {
    * @param x x-center of explosion
    * @param y y-center of explosion
    * @param radius radius of explosion
-   * @param animationRate 0.25 for slow animations, 0.5 for fast animations
+   * @param animationRate 0.2 for slow animations, 0.5 for fast animations
    */
-  constructor(x: number, y: number, radius: number, private animationRate: 0.25 | 0.5) {
+  constructor(x: number, y: number, radius: number, private animationRate: 0.2 | 0.5) {
     super();
     this.xPos = x;
     this.yPos = y;

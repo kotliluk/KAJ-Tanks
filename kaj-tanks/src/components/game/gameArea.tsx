@@ -322,7 +322,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
       if (tank.isAlive() && centerDistance(tank, proj) < proj.getExplosionRadius()) {
         // if a tank was destroyed
         if (tank.receiveDamage(proj.getDamage())) {
-          this.explosions.push(new Explosion(tank.getXPos() + BASE_TANK_WIDTH / 2, tank.getYPos(), 50, 0.25));
+          this.explosions.push(new Explosion(tank.getXPos() + BASE_TANK_WIDTH / 2, tank.getYPos(), 50, 0.2));
           // adds kill if the target was destroyed and it is not itself
           if (originTank.getId() !== tank.getId()) {
             originTank.addKill();

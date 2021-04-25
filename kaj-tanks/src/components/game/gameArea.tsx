@@ -5,14 +5,14 @@ import {
   BASE_CANVAS_WIDTH,
   GUN_MOVEMENT_SPEED,
   BASE_TANK_WIDTH,
-  OBSTACLE_PART_SIZE
+  OBSTACLE_PART_SIZE, BASE_GROUND_START, BASE_GROUND_HEIGHT
 } from "../../constants/constants";
 import Explosion from "../../game_objects/explosion";
 import { centerDistance } from "../../game_objects/gameUtils";
 import { ObstacleFactory } from "../../game_objects/obstacleFactory";
-import Projectile from "../../game_objects/Projectile";
+import Projectile from "../../game_objects/projectile";
 import { SquaredObstacle } from "../../game_objects/squaredObstacle";
-import Tank from "../../game_objects/Tank";
+import Tank from "../../game_objects/tank";
 import { PlayerStats } from "../../player/playerStats";
 import { floorToHundret } from "../../utils/math";
 import logo from "../../assets/imgs/logo.svg";
@@ -140,7 +140,9 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     this.lastUpdateTime = t;
 
     // clears the canvas
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, BASE_GROUND_START * this.sizeRatio);
+    this.ctx.fillStyle = "#189b18";
+    this.ctx.fillRect(0, BASE_GROUND_START * this.sizeRatio, this.canvas.width, BASE_GROUND_HEIGHT * this.sizeRatio);
     // moves current tank
     this.moveTank(dt);
     // moves current tank gun
@@ -191,11 +193,11 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
       this.fire();
     }
     // if there is only 0 or 1 alive tanks left, ends game
-    else if (this.state.tanks.filter(t => t.isAlive()).length < 2) {
+    else if (!isAnimation && this.state.tanks.filter(t => t.isAlive()).length < 2) {
       this.endGame();
       gameInProgress = false;
     }
-    // when last active projective disapeared and there is no animation
+    // when last active projective disappeared and there is no animation
     else if (this.projectiles.length === 0 && wereProjectiles && !isAnimation) {
       this.nextRound();
     }
@@ -299,11 +301,11 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
   private collide = (p: Projectile) => {
     if (
       // if the ground is hit
-      p.getYPos() + p.getRadius() > BASE_CANVAS_HEIGHT ||
+      p.getYPos() + p.getRadius() > BASE_GROUND_START ||
       // or some tank is hit
-      this.state.tanks.some(t => t.isColision(p)) ||
+      this.state.tanks.some(t => t.isCollision(p)) ||
       // or some obstacle is hit
-      this.obstacles.some(o => o.isColision(p))
+      this.obstacles.some(o => o.isCollision(p))
     ) {
       this.explode(p);
     }
@@ -317,16 +319,14 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     // @ts-ignore
     const originTank: Tank = this.state.tanks.find(t => t.getId() === proj.getOriginId());
     this.state.tanks.forEach(tank => {
-      if (
-        tank.isAlive() &&
-        centerDistance(tank, proj) < proj.getExplosionRadius()
-      ) {
-        // adds kill if the target was destroyed and it is not itself
-        if (
-          tank.receiveDamage(proj.getDamage()) &&
-          originTank.getId() !== tank.getId()
-        ) {
-          originTank.addKill();
+      if (tank.isAlive() && centerDistance(tank, proj) < proj.getExplosionRadius()) {
+        // if a tank was destroyed
+        if (tank.receiveDamage(proj.getDamage())) {
+          this.explosions.push(new Explosion(tank.getXPos() + BASE_TANK_WIDTH / 2, tank.getYPos(), 50, 0.25));
+          // adds kill if the target was destroyed and it is not itself
+          if (originTank.getId() !== tank.getId()) {
+            originTank.addKill();
+          }
         }
         // updates dealt damage if not hit itself
         if (originTank.getId() !== tank.getId()) {
@@ -336,9 +336,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
       }
     });
     this.obstacles.forEach(o => o.collide(proj));
-    this.explosions.push(
-      new Explosion(proj.getXPos(), proj.getYPos(), proj.getExplosionRadius())
-    );
+    this.explosions.push(new Explosion(proj.getXPos(), proj.getYPos(), proj.getExplosionRadius(), 0.5));
   };
 
   /**
@@ -557,7 +555,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
   }
 
   /**
-   * Sets init position of tanks and obsatcles.
+   * Sets init position of tanks and obstacles.
    */
   private initPositions(): void {
     const positions = initPositions[this.state.tanks.length - 2];
@@ -566,16 +564,12 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     positions.forEach((pos, i) => {
       // adding obstacle
       if (pos.o) {
-        this.obstacles.push(
-          obstacleFactory.random(distance * (i + 0.5), BASE_CANVAS_HEIGHT)
-        );
+        this.obstacles.push(obstacleFactory.random(distance * (i + 0.5), BASE_GROUND_START));
       }
       // setting tank position
       else {
-        this.state.tanks[pos.i].setXPos(
-          distance * (i + 0.5) - BASE_TANK_WIDTH / 2
-        );
-        this.state.tanks[pos.i].setYPos(BASE_CANVAS_HEIGHT);
+        this.state.tanks[pos.i].setXPos(distance * (i + 0.5) - BASE_TANK_WIDTH / 2);
+        this.state.tanks[pos.i].setYPos(BASE_GROUND_START);
       }
     });
   }
@@ -609,10 +603,11 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
     // div with ammo and fire
     this.footer.appendChild(this.createAmmoFireDiv());
 
-    // appends childs
+    // appends children
     gameArea.insertAdjacentElement("afterbegin", this.footer);
     gameArea.insertAdjacentElement("afterbegin", canvasContainer);
 
+    // starts update loop
     this.lastUpdateTime = Date.now();
     requestAnimationFrame(this.update);
   }

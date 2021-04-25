@@ -1,5 +1,8 @@
 export const BASE_CANVAS_WIDTH: number = 800;
 export const BASE_CANVAS_HEIGHT: number = 320;
+export const BASE_GROUND_START: number = 280;
+export const BASE_GROUND_HEIGHT: number = BASE_CANVAS_HEIGHT - BASE_GROUND_START;
+
 export const GUN_MOVEMENT_SPEED: number = 0.1;
 export const TANK_MOVEMENT_SPEED: number = 0.06;
 

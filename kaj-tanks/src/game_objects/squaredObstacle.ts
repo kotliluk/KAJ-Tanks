@@ -1,7 +1,7 @@
-import { BASE_CANVAS_HEIGHT, OBSTACLE_PART_SIZE } from "../constants/constants";
+import {BASE_GROUND_START, BASE_CANVAS_HEIGHT, OBSTACLE_PART_SIZE} from "../constants/constants";
 import { euclideanDistance } from "../utils/math";
 import { ColidingObject } from "./colidingObject";
-import Projectile from "./Projectile";
+import Projectile from "./projectile";
 
 /**
  * Helper class representing one column in SquaredObstacle.
@@ -31,9 +31,9 @@ class SquaredObstacleColumn extends ColidingObject {
   }
 
   /**
-   * Checks whether given square s on index i is in colision distance with projectile.
+   * Checks whether given square s on index i is in collision distance with projectile.
    */
-  private isSquareColision(s: string, i: number, p: Projectile): boolean {
+  private isSquareCollision(s: string, i: number, p: Projectile): boolean {
     // if the square exists, computes its distance from projectile
     if (s !== "") {
       const yCenter = this.yPos - (i + 0.5) * OBSTACLE_PART_SIZE;
@@ -109,7 +109,7 @@ class SquaredObstacleColumn extends ColidingObject {
     );
   }
 
-  public isColision(p: Projectile): boolean {
+  public isCollision(p: Projectile): boolean {
     // if the projectile is outside x boundary, returns false
     if (
       p.getXPos() + p.getRadius() < this.getXPos() ||
@@ -117,7 +117,7 @@ class SquaredObstacleColumn extends ColidingObject {
     ) {
       return false;
     }
-    return this.squares.some((s, i) => this.isSquareColision(s, i, p));
+    return this.squares.some((s, i) => this.isSquareCollision(s, i, p));
   }
 
   public show(ctx: CanvasRenderingContext2D, ratio: number): void {
@@ -154,7 +154,7 @@ class SquaredObstacleColumn extends ColidingObject {
 }
 
 /**
- * Obstacle created from square parts. Squares are animated to fall down after colision.
+ * Obstacle created from square parts. Squares are animated to fall down after collision.
  */
 export class SquaredObstacle extends ColidingObject {
   private animationOn: boolean = false;
@@ -164,10 +164,7 @@ export class SquaredObstacle extends ColidingObject {
 
   public constructor(xPos: number, yPos: number, squares: string[][]) {
     super();
-    this.columns = squares.map(
-      (s, i) =>
-        new SquaredObstacleColumn(xPos + i * OBSTACLE_PART_SIZE, yPos, s)
-    );
+    this.columns = squares.map((s, i) => new SquaredObstacleColumn(xPos + i * OBSTACLE_PART_SIZE, yPos, s));
     this.columnsCount = this.columns.length;
     this.xPos = xPos;
     this.yPos = yPos;
@@ -207,19 +204,17 @@ export class SquaredObstacle extends ColidingObject {
     return this.columnsCount;
   }
 
-  public isColision(p: Projectile): boolean {
+  public isCollision(p: Projectile): boolean {
     // if the projectile is outside boundary rectangle, returns false
     if (
       p.getXPos() + p.getRadius() < this.xPos ||
-      p.getXPos() - p.getRadius() >
-        this.xPos + this.columnsCount * OBSTACLE_PART_SIZE ||
-      p.getYPos() + p.getRadius() <
-        BASE_CANVAS_HEIGHT - this.highest * OBSTACLE_PART_SIZE
+      p.getXPos() - p.getRadius() > this.xPos + this.columnsCount * OBSTACLE_PART_SIZE ||
+      p.getYPos() + p.getRadius() < this.yPos - this.highest * OBSTACLE_PART_SIZE
     ) {
       return false;
     }
     // if any obstacle column was hit, returns true
-    return this.columns.some(c => c.isColision(p));
+    return this.columns.some(c => c.isCollision(p));
   }
 
   public show(ctx: CanvasRenderingContext2D, ratio: number): void {
@@ -231,13 +226,11 @@ export class SquaredObstacle extends ColidingObject {
   }
 
   public collide(p: Projectile): void {
-    // if the projectile is outside boundary rectangle, colision cannot happen
+    // if the projectile is outside boundary rectangle, collision cannot happen
     if (
       p.getXPos() + p.getExplosionRadius() < this.getXPos() ||
-      p.getXPos() - p.getExplosionRadius() >
-        this.getXPos() + this.getColumnsCount() * OBSTACLE_PART_SIZE ||
-      p.getYPos() + p.getExplosionRadius() <
-        BASE_CANVAS_HEIGHT - this.highest * OBSTACLE_PART_SIZE
+      p.getXPos() - p.getExplosionRadius() > this.getXPos() + this.getColumnsCount() * OBSTACLE_PART_SIZE ||
+      p.getYPos() + p.getExplosionRadius() < this.yPos - this.highest * OBSTACLE_PART_SIZE
     ) {
       return;
     }

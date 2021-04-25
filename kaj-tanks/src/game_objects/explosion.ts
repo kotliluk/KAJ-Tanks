@@ -18,7 +18,6 @@ const animationSteps: AnimationStep[][] = [
 ];
 
 const animationLen: number = animationSteps.length;
-const animationRate: number = 0.5;
 
 /**
  * Game object representation of an explosion animation.
@@ -27,7 +26,13 @@ export default class Explosion extends GameObject {
   private readonly radius: number;
   private t: number;
 
-  constructor(x: number, y: number, radius: number) {
+  /**
+   * @param x x-center of explosion
+   * @param y y-center of explosion
+   * @param radius radius of explosion
+   * @param animationRate 0.25 for slow animations, 0.5 for fast animations
+   */
+  constructor(x: number, y: number, radius: number, private animationRate: 0.25 | 0.5) {
     super();
     this.xPos = x;
     this.yPos = y;
@@ -48,7 +53,7 @@ export default class Explosion extends GameObject {
   public show(ctx: CanvasRenderingContext2D, ratio: number): void {
     const currentStep = animationSteps[Math.floor(this.t)];
     currentStep.forEach(c => this.drawCircle(ctx, ratio, c));
-    this.t += animationRate;
+    this.t += this.animationRate;
   }
 
   /**

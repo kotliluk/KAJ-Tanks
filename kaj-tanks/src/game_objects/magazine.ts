@@ -1,6 +1,6 @@
 import { getRandomSubarray } from "../utils/array";
 import { mod } from "../utils/math";
-import Projectile, { ProjectileStats } from "./Projectile";
+import Projectile, { ProjectileStats } from "./projectile";
 
 enum ProjIndex {
   STANDARD,

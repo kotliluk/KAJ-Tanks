@@ -5,12 +5,12 @@ import { BASE_TANK_WIDTH } from "../constants/constants";
 import { PlayerStats } from "../player/playerStats";
 import { ColidingObject } from "./colidingObject";
 import Magazine from "./magazine";
-import Projectile from "./Projectile";
+import Projectile from "./projectile";
 
 /**
  * Tank for the GameArea.
  * It works with 2 postion/size scales:
- * - base scale for inner representation (saved position, colision computation)\
+ * - base scale for inner representation (saved position, collision computation)\
  * - ratio-scaled for printing on screen
  */
 export default class Tank extends ColidingObject {
@@ -141,7 +141,7 @@ export default class Tank extends ColidingObject {
     return this.magazine.getCurrentProjectileLongStats();
   }
 
-  public isColision(p: Projectile): boolean {
+  public isCollision(p: Projectile): boolean {
     return (
       // if they are in collision y-range
       p.getYPos() + p.getRadius() > this.getYPos() - BASE_TANK_HEIGHT &&

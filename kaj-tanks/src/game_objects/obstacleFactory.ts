@@ -9,9 +9,8 @@ export class ObstacleFactory {
    * Returns random obstacle.
    */
   public random(xLeft: number, yBottom: number): SquaredObstacle {
-    const methods = Object.getOwnPropertyNames(
-      ObstacleFactory.prototype
-    ).filter(m => m !== "random" && m !== "constructor");
+    const methods = Object.getOwnPropertyNames(ObstacleFactory.prototype)
+      .filter(m => m !== "random" && m !== "constructor");
     const index = Math.floor(Math.random() * methods.length);
     // @ts-ignore
     return this[methods[index]](xLeft, yBottom);

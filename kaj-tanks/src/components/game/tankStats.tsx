@@ -1,5 +1,5 @@
 import * as React from "react";
-import Tank from "../../game_objects/Tank";
+import Tank from "../../game_objects/tank";
 import "./tankStats.css"
 
 interface TankStatsProps {

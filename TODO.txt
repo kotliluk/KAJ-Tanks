@@ -1,9 +1,13 @@
-Nahrani obrazku
+Offline check
 
 Drag and drop u new game hracu
 
+History API - preklikavani home/new game/...
+
 Nastaveni parametru strel, 100 default zivotu
 
-Nasadit na GH Pages
+Lepsi resize s media queries
+
+Validity check
 
 Napsat specifikaci

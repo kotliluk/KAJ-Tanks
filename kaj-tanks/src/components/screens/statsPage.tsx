@@ -1,10 +1,11 @@
 import React, {ChangeEvent} from "react";
-import { PlayerStorage } from "../../player/playerStorage";
+import {maxAvatarSize, PlayerStorage} from "../../player/playerStorage";
 import {PlayerStats, sortPlayers} from "../../player/playerStats";
 import {PlayerTable} from "./playerTable";
 import "./statsPage.css";
 import defaultAvatar from "../../assets/imgs/default_avatar.png";
 import {FileDialog} from "../../utils/fileDialog";
+import {MessageBox} from "../messageBox";
 
 interface StatsPageProps {
   // returns to the previous page
@@ -44,9 +45,12 @@ export default class StatsPage extends React.Component<
    * Creates a new player and saves it into the local storage.
    */
   private handleAddNewPlayer = () => {
+    const name = this.state.newPlayerName;
+    const avatar = this.state.avatar;
     this.setState({
-      players: PlayerStorage.saveNewPlayer(this.state.newPlayerName),
-      newPlayerName: ""
+      players: PlayerStorage.saveNewPlayer(name, avatar),
+      newPlayerName: "",
+      avatar: defaultAvatar
     });
   }
 
@@ -60,7 +64,12 @@ export default class StatsPage extends React.Component<
   }
 
   private changeAvatar = () => {
-    FileDialog.openPNG().then(img => this.setState({avatar: img}));//TODO message box, ulozeni obrazku
+    FileDialog.openPNG(maxAvatarSize)
+      .then(img => {
+        this.setState({avatar: img});
+        MessageBox.message("Avatar loaded successfully!");
+      })
+      .catch(MessageBox.error);
   }
 
   render() {
@@ -92,7 +101,7 @@ export default class StatsPage extends React.Component<
           <button onClick={this.handleAddNewPlayer} className="menu-button" disabled={disabled}>Create</button>
           <div onClick={this.changeAvatar}>
             <img src={this.state.avatar} alt="avatar"/>
-            <span>Load your avatar (max 2kb, 24x24 PNG)</span>
+            <span>Load your avatar (PNG, max {maxAvatarSize} bytes)</span>
           </div>
         </form>
 

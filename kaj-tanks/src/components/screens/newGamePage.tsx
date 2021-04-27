@@ -3,6 +3,7 @@ import { PlayerStorage } from "../../player/playerStorage";
 import { newEmptyPlayer, PlayerStats } from "../../player/playerStats";
 import { randomRGB } from "../../utils/color";
 import AddPlayerMenu from "./addPlayerMenu";
+import defaultAvatar from "../../assets/imgs/default_avatar.png";
 import "./newGamePage.css";
 
 interface NewGamePageProps {
@@ -47,7 +48,7 @@ export default class NewGamePage extends React.Component<
    */
   private handleAddQuickPlayer = (): void => {
     const id = this.state.minUsedId - 1;
-    this.state.participants.push(newEmptyPlayer(id, "", randomRGB()));
+    this.state.participants.push(newEmptyPlayer(id, "", randomRGB(), defaultAvatar));
     this.setState({ minUsedId: id });
   };
 
@@ -57,7 +58,7 @@ export default class NewGamePage extends React.Component<
   private handleAddStoredPlayer = (): void => {
     // @ts-ignore - the player is removed from the available array
     const player: PlayerStats = this.state.availableStored.shift();
-    this.state.participants.push(newEmptyPlayer(player.id, player.name, randomRGB()));
+    this.state.participants.push(newEmptyPlayer(player.id, player.name, randomRGB(), player.avatar));
     this.setState({});
   };
 

@@ -1,6 +1,11 @@
 import { newEmptyPlayer, PlayerStats } from "./playerStats";
 
 /**
+ * Maximal size of avatar image in bytes.
+ */
+export const maxAvatarSize: number = 2048;
+
+/**
  * Wrapper of accessing browser localStorage for storing player stats.
  */
 export class PlayerStorage {
@@ -55,10 +60,10 @@ export class PlayerStorage {
   /**
    * Saves a new player with the given name to the localStorage.
    */
-  public static saveNewPlayer(name: string): PlayerStats[] {
+  public static saveNewPlayer(name: string, avatar: string): PlayerStats[] {
     if (PlayerStorage.storageSupported) {
       PlayerStorage.maxId += 1;
-      PlayerStorage.players.push(newEmptyPlayer(PlayerStorage.maxId, name, ""));
+      PlayerStorage.players.push(newEmptyPlayer(PlayerStorage.maxId, name, "", avatar));
       PlayerStorage.persist();
       return PlayerStorage.players;
     }

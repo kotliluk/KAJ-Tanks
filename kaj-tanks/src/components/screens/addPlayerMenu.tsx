@@ -51,13 +51,14 @@ export default class AddPlayerMenu extends React.Component<
    * Changes the displayed player to the new selected stored one.
    */
   private handleStoredPlayerChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    // @ts-ignore
-    const players: PlayerStats[] = this.props.availableStoredPlayers.filter(p => String(p.id) === event.target.value)[0];
+    // @ts-ignore - availableStoredPlayers must be defined in stored-player version
+    const players: PlayerStats = this.props.availableStoredPlayers.filter(p => String(p.id) === event.target.value)[0];
     this.props.onPlayerChange(
       newEmptyPlayer(
-        players[0].id,
-        players[0].name,
-        players[0].color === "" ? randomRGB() : players[0].color
+        players.id,
+        players.name,
+        players.color === "" ? randomRGB() : players.color,
+        players.avatar
       )
     );
   };
@@ -66,6 +67,7 @@ export default class AddPlayerMenu extends React.Component<
     return (
       <div className="add-player-menu">
         <header>
+          <img src={this.props.player.avatar} alt=":("/>
           <h4>
             {this.isQuick() ? "Quick" : "Stored"} player {this.props.index + 1}:
           </h4>
@@ -98,11 +100,7 @@ export default class AddPlayerMenu extends React.Component<
               onChange={this.handleStoredPlayerChange}
             >
               {this.props.availableStoredPlayers && this.props.availableStoredPlayers.map(player => {
-                return (
-                  <option key={player.id} value={player.id}>
-                    {player.name}
-                  </option>
-                );
+                return <option key={player.id} value={player.id}>{player.name}</option>;
               })}
             </select>
           </div>

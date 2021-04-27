@@ -1,5 +1,6 @@
 import React from "react";
 import {PlayerStats, winRatio} from "../../player/playerStats";
+import "./playerTable.css";
 
 interface PlayerTableProps {
   // players to be displayed
@@ -24,6 +25,7 @@ export class PlayerTable extends React.Component<PlayerTableProps, any> {
         <thead>
           <tr>
             <th/>
+            <th className="img-th"/>
             <th>Name:</th>
             {this.props.showWins && <th>Wins:</th>}
             <th>Kills:</th>
@@ -36,6 +38,7 @@ export class PlayerTable extends React.Component<PlayerTableProps, any> {
         {this.props.players.map((p, i) => (
           <tr key={p.id}>
             <td>{i + 1}</td>
+            <td className="img-td"><img src={p.avatar} width={30} height={30} alt=":("/></td>
             <td>{p.name}</td>
             {this.props.showWins && <td>{Math.floor(winRatio(p) * 100)}% ({p.wins}/{p.wins + p.loses})</td>}
             <td>{p.kills}</td>

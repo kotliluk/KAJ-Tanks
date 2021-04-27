@@ -6,6 +6,7 @@ export interface PlayerStats {
   id: number;
   name: string;
   color: string;
+  avatar: string;
   wins: number;
   loses: number;
   dmgDealt: number;
@@ -19,12 +20,14 @@ export interface PlayerStats {
 export function newEmptyPlayer(
   id: number,
   name: string,
-  color: string
+  color: string = "",
+  avatar: string = ""
 ): PlayerStats {
   return {
     id: id,
     name: name,
     color: color,
+    avatar: avatar,
     wins: 0,
     loses: 0,
     dmgDealt: 0,

@@ -4,7 +4,7 @@ import { randomRGB } from "../../utils/color";
 import "./addPlayerMenu.css";
 
 interface AddPlayerMenuProps {
-  // index of the add player menu (used for its id)
+  // index of the add player menu (used for menu ids)
   index: number;
   // player information to be displayed
   player: PlayerStats;
@@ -14,6 +14,8 @@ interface AddPlayerMenuProps {
   onPlayerChange: (player: PlayerStats) => void;
   // handler of removing the menu
   onRemove: () => void;
+  // handler of user's drag menu change
+  onDragChange: (from: number, to: number) => void;
 }
 
 interface AddPlayerMenuState {}
@@ -63,9 +65,31 @@ export default class AddPlayerMenu extends React.Component<
     );
   };
 
+  // @ts-ignore
+  private handleDragStart = (e: DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData("text/plain", this.props.index);
+  }
+
+  // @ts-ignore
+  private handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  }
+
+  // @ts-ignore
+  private handleDragDrop = (e: DragEvent<HTMLDivElement>) => {
+    const from = Number(e.dataTransfer.getData("text/plain"));
+    if (!isNaN(from)) {
+      this.props.onDragChange(from, this.props.index);
+    }
+  }
+
   render() {
     return (
-      <div className="add-player-menu">
+      <div className="add-player-menu"
+           draggable={true}
+           onDragStart={this.handleDragStart}
+           onDragOver={this.handleDragOver}
+           onDrop={this.handleDragDrop}>
         <header>
           <img src={this.props.player.avatar} alt=":("/>
           <h4>

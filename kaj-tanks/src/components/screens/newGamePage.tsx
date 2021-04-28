@@ -92,6 +92,27 @@ export default class NewGamePage extends React.Component<
     this.setState({ availableStored: available, participants: participants });
   };
 
+  private handleDragChange = (from: number, to: number) => {
+    // dragging up
+    if (from > to) {
+      const before = this.state.participants.slice(0, to);
+      const moved = this.state.participants.slice(to, from);
+      const fromValue = this.state.participants[from];
+      const after = this.state.participants.slice(from + 1);
+      const newArray = [...before, fromValue, ...moved, ...after];
+      this.setState({participants: newArray});
+    }
+    // dragging down
+    else if (from < to) {
+      const before = this.state.participants.slice(0, from);
+      const fromValue = this.state.participants[from];
+      const moved = this.state.participants.slice(from + 1, to + 1);
+      const after = this.state.participants.slice(to + 1);
+      const newArray = [...before, ...moved, fromValue, ...after];
+      this.setState({participants: newArray});
+    }
+  }
+
   render() {
     const playersCountError = this.state.participants.length < minPlayers;
     const nameError = this.state.participants.some(p => p.name === "");
@@ -110,6 +131,7 @@ export default class NewGamePage extends React.Component<
               }
               onPlayerChange={player => this.handlePlayerChange(player, i)}
               onRemove={() => this.handleRemovePlayer(i)}
+              onDragChange={this.handleDragChange}
             />
           );
         })}

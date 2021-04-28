@@ -22,6 +22,7 @@ export class AudioPlayer {
     const a = new Audio();
     a.src = "tank_fire.mp3";
     a.volume = volume;
+    console.log(a);
     a.play();
   }
 

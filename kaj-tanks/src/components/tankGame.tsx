@@ -29,6 +29,7 @@ interface TankGameState {
   screen: ScreenType;
   currentPlayers: PlayerStats[];
   backgroundMusic: boolean;
+  online: boolean;
 }
 
 /**
@@ -40,8 +41,11 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
     this.state = {
       screen: ScreenType.HOME,
       currentPlayers: [],
-      backgroundMusic: false
+      backgroundMusic: false,
+      online: navigator.onLine
     };
+    window.addEventListener("online", () => this.setState({online: true}));
+    window.addEventListener("offline", () => this.setState({online: false}));
   }
 
   private toggleBackgroundMusic = () => {
@@ -111,14 +115,20 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
   };
 
   render() {
+    const onlineString = this.state.online ? "online" : "offline"
     return (
       <main>
         {this.state.screen !== ScreenType.GAME && (
           <header>
             <Logo width={300}/>
-            <button onClick={this.toggleBackgroundMusic} className="menu-button">
-              {"Music " + (this.state.backgroundMusic ? "on" : "off")}
-            </button>
+            <div>
+              <button onClick={this.toggleBackgroundMusic} className="menu-button">
+                {"Music " + (this.state.backgroundMusic ? "on" : "off")}
+              </button>
+              <div className={"online-point " + onlineString}>
+                <span>{onlineString}</span>
+              </div>
+            </div>
           </header>
         )}
         {this.state.screen === ScreenType.HOME && this.renderHomePage()}

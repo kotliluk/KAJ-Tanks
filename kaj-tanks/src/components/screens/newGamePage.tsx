@@ -30,10 +30,7 @@ const maxPlayers: number = 4;
  * 2, 3, or 4 players must be added for the game to begin.
  * Quick or stored players can be added.
  */
-export default class NewGamePage extends React.Component<
-  NewGamePageProps,
-  NewGamePageState
-> {
+export default class NewGamePage extends React.Component<NewGamePageProps, NewGamePageState> {
   constructor(props: NewGamePageProps) {
     super(props);
     this.state = {

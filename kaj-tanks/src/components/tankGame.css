@@ -4,3 +4,45 @@ main {
     justify-content: flex-start;
     align-items: center;
 }
+
+main > header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+main > header > div {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.online-point {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin: 5px 0 12px 0;
+}
+
+.online-point.online {
+    background-color: green;
+}
+
+.online-point.offline {
+    background-color: red;
+}
+
+.online-point > span {
+    position: absolute;
+    visibility: hidden;
+    left: 100%;
+    top: 100%;
+
+    background-color: var(--color-area-grey);
+    color: var(--color-details-white);
+    padding: 2px 5px;
+}
+
+.online-point:hover > span {
+    visibility: visible;
+}

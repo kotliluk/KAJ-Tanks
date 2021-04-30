@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/KAJ-Tanks/static/css/main.a4c523a8.chunk.css",
-    "main.js": "/KAJ-Tanks/static/js/main.51ef4040.chunk.js",
-    "main.js.map": "/KAJ-Tanks/static/js/main.51ef4040.chunk.js.map",
+    "main.css": "/KAJ-Tanks/static/css/main.eb28560e.chunk.css",
+    "main.js": "/KAJ-Tanks/static/js/main.1ab9b4e8.chunk.js",
+    "main.js.map": "/KAJ-Tanks/static/js/main.1ab9b4e8.chunk.js.map",
     "runtime-main.js": "/KAJ-Tanks/static/js/runtime-main.58d222de.js",
     "runtime-main.js.map": "/KAJ-Tanks/static/js/runtime-main.58d222de.js.map",
     "static/js/2.1714f949.chunk.js": "/KAJ-Tanks/static/js/2.1714f949.chunk.js",
@@ -10,15 +10,15 @@
     "static/js/3.182792b8.chunk.js": "/KAJ-Tanks/static/js/3.182792b8.chunk.js",
     "static/js/3.182792b8.chunk.js.map": "/KAJ-Tanks/static/js/3.182792b8.chunk.js.map",
     "index.html": "/KAJ-Tanks/index.html",
-    "static/css/main.a4c523a8.chunk.css.map": "/KAJ-Tanks/static/css/main.a4c523a8.chunk.css.map",
+    "static/css/main.eb28560e.chunk.css.map": "/KAJ-Tanks/static/css/main.eb28560e.chunk.css.map",
     "static/js/2.1714f949.chunk.js.LICENSE.txt": "/KAJ-Tanks/static/js/2.1714f949.chunk.js.LICENSE.txt",
-    "static/js/main.51ef4040.chunk.js.LICENSE.txt": "/KAJ-Tanks/static/js/main.51ef4040.chunk.js.LICENSE.txt",
+    "static/js/main.1ab9b4e8.chunk.js.LICENSE.txt": "/KAJ-Tanks/static/js/main.1ab9b4e8.chunk.js.LICENSE.txt",
     "static/media/logo.832d76fd.svg": "/KAJ-Tanks/static/media/logo.832d76fd.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.58d222de.js",
     "static/js/2.1714f949.chunk.js",
-    "static/css/main.a4c523a8.chunk.css",
-    "static/js/main.51ef4040.chunk.js"
+    "static/css/main.eb28560e.chunk.css",
+    "static/js/main.1ab9b4e8.chunk.js"
   ]
 }

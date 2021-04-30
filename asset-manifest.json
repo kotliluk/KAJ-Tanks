@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/KAJ-Tanks/static/css/main.384ebb0d.chunk.css",
-    "main.js": "/KAJ-Tanks/static/js/main.ccefe296.chunk.js",
-    "main.js.map": "/KAJ-Tanks/static/js/main.ccefe296.chunk.js.map",
+    "main.js": "/KAJ-Tanks/static/js/main.c7096018.chunk.js",
+    "main.js.map": "/KAJ-Tanks/static/js/main.c7096018.chunk.js.map",
     "runtime-main.js": "/KAJ-Tanks/static/js/runtime-main.4ace136c.js",
     "runtime-main.js.map": "/KAJ-Tanks/static/js/runtime-main.4ace136c.js.map",
     "static/js/2.6651ad9f.chunk.js": "/KAJ-Tanks/static/js/2.6651ad9f.chunk.js",
@@ -12,13 +12,13 @@
     "index.html": "/KAJ-Tanks/index.html",
     "static/css/main.384ebb0d.chunk.css.map": "/KAJ-Tanks/static/css/main.384ebb0d.chunk.css.map",
     "static/js/2.6651ad9f.chunk.js.LICENSE.txt": "/KAJ-Tanks/static/js/2.6651ad9f.chunk.js.LICENSE.txt",
-    "static/js/main.ccefe296.chunk.js.LICENSE.txt": "/KAJ-Tanks/static/js/main.ccefe296.chunk.js.LICENSE.txt",
+    "static/js/main.c7096018.chunk.js.LICENSE.txt": "/KAJ-Tanks/static/js/main.c7096018.chunk.js.LICENSE.txt",
     "static/media/logo.832d76fd.svg": "/KAJ-Tanks/static/media/logo.832d76fd.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.4ace136c.js",
     "static/js/2.6651ad9f.chunk.js",
     "static/css/main.384ebb0d.chunk.css",
-    "static/js/main.ccefe296.chunk.js"
+    "static/js/main.c7096018.chunk.js"
   ]
 }

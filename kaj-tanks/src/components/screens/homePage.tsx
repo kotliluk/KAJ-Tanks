@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import "./homePage.css";
+import {playLink, statsLink} from "../tankGame";
 
 interface HomePageProps {}
 
@@ -14,8 +15,8 @@ export class HomePage extends React.Component<HomePageProps, HomePageStats> {
   render() {
     return (
       <section className="home-page">
-        <Link className="menu-button link" to="/play">New game</Link>
-        <Link className="menu-button link" to="/stats">Statistics</Link>
+        <Link className="menu-button link" to={playLink}>New game</Link>
+        <Link className="menu-button link" to={statsLink}>Statistics</Link>
       </section>
     );
   }

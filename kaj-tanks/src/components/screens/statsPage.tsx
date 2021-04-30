@@ -7,6 +7,7 @@ import "./statsPage.css";
 import defaultAvatar from "../../assets/imgs/default_avatar.png";
 import {FileDialog} from "../../utils/fileDialog";
 import {MessageBox} from "../messageBox";
+import {homePageLink} from "../tankGame";
 
 interface StatsPageProps {}
 
@@ -100,7 +101,7 @@ export default class StatsPage extends React.Component<StatsPageProps, StatsPage
           </div>
         </form>
 
-        <Link className="menu-button link" to="/">Back</Link>
+        <Link className="menu-button link" to={homePageLink}>Back</Link>
       </section>
     );
   }

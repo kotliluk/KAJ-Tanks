@@ -6,6 +6,7 @@ import { randomRGB } from "../../utils/color";
 import AddPlayerMenu from "./addPlayerMenu";
 import defaultAvatar from "../../assets/imgs/default_avatar.png";
 import "./newGamePage.css";
+import {homePageLink} from "../tankGame";
 
 interface NewGamePageProps {
   // accepts the array of players selected for the game
@@ -140,7 +141,7 @@ export default class NewGamePage extends React.Component<NewGamePageProps, NewGa
             <button onClick={this.handleAddStoredPlayer} className="menu-button">Stored player</button>
           ) : null}
         <div>
-          <Link className="menu-button link" to="/">Back</Link>
+          <Link className="menu-button link" to={homePageLink}>Back</Link>
           <button
             onClick={() => this.props.onSubmit(this.state.participants)}
             disabled={playersCountError || nameError}

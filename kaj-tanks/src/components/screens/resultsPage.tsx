@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {PlayerStats, sortPlayers} from "../../player/playerStats";
 import {PlayerTable} from "./playerTable";
 import "./resultPage.css"
+import {homePageLink} from "../tankGame";
 
 interface ResultsPageProps {
   // array of player results from the game.
@@ -27,7 +28,7 @@ export class ResultsPage extends React.Component<
           showWins={false}
           showDelete={false}
         />
-        <Link className="menu-button link" to="/">Back</Link>
+        <Link className="menu-button link" to={homePageLink}>Back</Link>
       </section>
     );
   }

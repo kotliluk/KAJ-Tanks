@@ -7,6 +7,10 @@ import {AudioPlayer} from "../utils/audioPlayer";
 import {PlayWrapper} from "./screens/playWrapper";
 import {HomePage} from "./screens/homePage";
 
+export const homePageLink: string = "/KAJ-Tanks/";
+export const statsLink: string = homePageLink + "stats";
+export const playLink: string = homePageLink + "play"
+
 interface TankGameProps {}
 
 interface TankGameState {
@@ -62,13 +66,13 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
         <main>
           {this.renderHeader()}
           <Switch>
-            <Route path="/stats">
+            <Route path={statsLink}>
               <StatsPage />
             </Route>
-            <Route path="/play">
+            <Route path={playLink}>
               <PlayWrapper />
             </Route>
-            <Route path="/">
+            <Route path={homePageLink}>
               <HomePage />
             </Route>
           </Switch>

@@ -1,5 +1,3 @@
-History API - preklikavani home/new game/...
-
 Nastaveni parametru strel, 100 default zivotu
 
 Lepsi resize s media queries

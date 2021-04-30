@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { PlayerStorage } from "../../player/playerStorage";
 import { newEmptyPlayer, PlayerStats } from "../../player/playerStats";
 import { randomRGB } from "../../utils/color";
@@ -9,8 +10,6 @@ import "./newGamePage.css";
 interface NewGamePageProps {
   // accepts the array of players selected for the game
   onSubmit: (players: PlayerStats[]) => void;
-  // returns to the previous page
-  onBack: () => void;
 }
 
 interface NewGamePageState {
@@ -141,8 +140,7 @@ export default class NewGamePage extends React.Component<NewGamePageProps, NewGa
             <button onClick={this.handleAddStoredPlayer} className="menu-button">Stored player</button>
           ) : null}
         <div>
-          <button onClick={this.props.onBack}
-          className="menu-button">Back</button>
+          <Link className="menu-button link" to="/">Back</Link>
           <button
             onClick={() => this.props.onSubmit(this.state.participants)}
             disabled={playersCountError || nameError}

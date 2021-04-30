@@ -31,7 +31,7 @@ import reportWebVitals from './reportWebVitals';
  */
 ReactDOM.render(
   <React.StrictMode>
-    <TankGame id="game-area" />
+    <TankGame />
   </React.StrictMode>,
   document.getElementById('root')
 );

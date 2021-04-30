@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import {PlayerStats, sortPlayers} from "../../player/playerStats";
 import {PlayerTable} from "./playerTable";
 import "./resultPage.css"
@@ -6,8 +7,6 @@ import "./resultPage.css"
 interface ResultsPageProps {
   // array of player results from the game.
   players: PlayerStats[];
-  // returns to the previous page
-  onBack: () => void;
 }
 
 interface ResultsPageState {}
@@ -28,7 +27,7 @@ export class ResultsPage extends React.Component<
           showWins={false}
           showDelete={false}
         />
-        <button onClick={this.props.onBack} className="menu-button">Back</button>
+        <Link className="menu-button link" to="/">Back</Link>
       </section>
     );
   }

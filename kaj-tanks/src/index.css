@@ -20,6 +20,9 @@ body {
 .menu-button {
   height: 24px;
   margin: 1px;
+  padding: 1px 6px;
+  box-sizing: border-box;
+  display: inline-block;
 
   background-color: var(--color-area-black);
   color: var(--color-details-white);
@@ -27,7 +30,9 @@ body {
   border-radius: 10px;
   cursor: pointer;
 
+  font-family: Arial, sans-serif;
   font-size: 16px;
+  text-decoration: none;
 }
 
 .menu-button:hover {
@@ -38,6 +43,13 @@ body {
   background-color: transparent;
   cursor: default;
 }
+
+/* LINK */
+
+.link {
+  padding-top: 3px;
+}
+
 /* SCROLLBAR */
 
 body::-webkit-scrollbar, .body-dark::-webkit-scrollbar {

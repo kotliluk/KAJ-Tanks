@@ -52,10 +52,6 @@ const initPositions: { o: boolean; i: number }[][] = [
 
 interface GameAreaProps {
   /**
-   * Id of the component.
-   */
-  id: string;
-  /**
    * Array of players for the game.
    */
   players: PlayerStats[];
@@ -579,7 +575,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
    */
   componentDidMount() {
     // @ts-ignore - gets parent section
-    const gameArea: HTMLElement = document.getElementById(this.props.id);
+    const gameArea: HTMLElement = document.getElementById("game-area");
     window.addEventListener("resize", () => this.computeSize());
     // create canvas for graphics
     this.canvas = document.createElement("canvas");
@@ -617,7 +613,7 @@ export class GameArea extends React.Component<GameAreaProps, GameAreaState> {
    */
   render() {
     return (
-      <section id={this.props.id} className="game-area">
+      <section id="game-area" className="game-area">
         <div className="tank-stats-container">
           {this.state.tanks.map((tank, i) => {
             return <TankStats tank={tank} key={i} />;

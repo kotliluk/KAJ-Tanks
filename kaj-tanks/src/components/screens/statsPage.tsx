@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from "react";
+import { Link } from "react-router-dom";
 import {maxAvatarSize, PlayerStorage} from "../../player/playerStorage";
 import {PlayerStats, sortPlayers} from "../../player/playerStats";
 import {PlayerTable} from "./playerTable";
@@ -7,10 +8,7 @@ import defaultAvatar from "../../assets/imgs/default_avatar.png";
 import {FileDialog} from "../../utils/fileDialog";
 import {MessageBox} from "../messageBox";
 
-interface StatsPageProps {
-  // returns to the previous page
-  onBack: () => void;
-}
+interface StatsPageProps {}
 
 interface StatsPageState {
   players: PlayerStats[];
@@ -21,10 +19,7 @@ interface StatsPageState {
 /**
  * Shows stats of stored players.
  */
-export default class StatsPage extends React.Component<
-  StatsPageProps,
-  StatsPageState
-  > {
+export default class StatsPage extends React.Component<StatsPageProps, StatsPageState> {
   constructor(props: StatsPageProps) {
     super(props);
     this.state = {
@@ -105,7 +100,7 @@ export default class StatsPage extends React.Component<
           </div>
         </form>
 
-        <button onClick={this.props.onBack} className="menu-button">Back</button>
+        <Link className="menu-button link" to="/">Back</Link>
       </section>
     );
   }

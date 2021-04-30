@@ -1,33 +1,15 @@
 import * as React from "react";
-import { PlayerStats } from "../player/playerStats";
-import { PlayerStorage } from "../player/playerStorage";
-import { GameArea } from "./game/gameArea";
-import { HomePage } from "./screens/homePage";
-import NewGamePage from "./screens/newGamePage";
-import { ResultsPage } from "./screens/resultsPage";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import StatsPage from "./screens/statsPage";
 import "./tankGame.css";
 import {Logo} from "./logo";
 import {AudioPlayer} from "../utils/audioPlayer";
+import {PlayWrapper} from "./screens/playWrapper";
+import {HomePage} from "./screens/homePage";
 
-/**
- * Current screen content.
- */
-enum ScreenType {
-  HOME,
-  STATS,
-  NEW_GAME,
-  GAME,
-  RESULTS
-}
-
-interface TankGameProps {
-  id: string;
-}
+interface TankGameProps {}
 
 interface TankGameState {
-  screen: ScreenType;
-  currentPlayers: PlayerStats[];
   backgroundMusic: boolean;
   online: boolean;
 }
@@ -39,8 +21,6 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
   constructor(props: TankGameProps) {
     super(props);
     this.state = {
-      screen: ScreenType.HOME,
-      currentPlayers: [],
       backgroundMusic: false,
       online: navigator.onLine
     };
@@ -59,84 +39,41 @@ export class TankGame extends React.Component<TankGameProps, TankGameState> {
     }
   }
 
-  private renderHomePage = () => {
+  private renderHeader = () => {
+    const onlineString = this.state.online ? "online" : "offline";
     return (
-      <HomePage
-        onNewGame={() => this.setState({ screen: ScreenType.NEW_GAME })}
-        onStats={() => this.setState({ screen: ScreenType.STATS })}
-      />
+      <header>
+        <Logo width={300}/>
+        <div>
+          <button onClick={this.toggleBackgroundMusic} className="menu-button">
+            {"Music " + (this.state.backgroundMusic ? "on" : "off")}
+          </button>
+          <div className={"online-point " + onlineString}>
+            <span>{onlineString}</span>
+          </div>
+        </div>
+      </header>
     );
-  };
-
-  private renderStats = () => {
-    return (
-      <StatsPage onBack={() => this.setState({ screen: ScreenType.HOME })} />
-    );
-  };
-
-  private renderNewGamePage = () => {
-    return (
-      <NewGamePage
-        onBack={() => this.setState({ screen: ScreenType.HOME })}
-        onSubmit={players => {
-          AudioPlayer.pauseBackgroundMusic();
-          this.setState({ screen: ScreenType.GAME, currentPlayers: players });
-        }}
-      />
-    );
-  };
-
-  private renderGame = () => {
-    return (
-      <GameArea
-        id={this.props.id}
-        players={this.state.currentPlayers}
-        onEnd={players => {
-          if (this.state.backgroundMusic) {
-            AudioPlayer.startBackgroundMusic();
-          }
-          players.forEach(p => PlayerStorage.updatePlayer(p));
-          this.setState({
-            screen: ScreenType.RESULTS,
-            currentPlayers: players
-          });
-        }}
-      />
-    );
-  };
-
-  private renderResults = () => {
-    return (
-      <ResultsPage
-        players={this.state.currentPlayers}
-        onBack={() => this.setState({ screen: ScreenType.HOME })}
-      />
-    );
-  };
+  }
 
   render() {
-    const onlineString = this.state.online ? "online" : "offline"
     return (
-      <main>
-        {this.state.screen !== ScreenType.GAME && (
-          <header>
-            <Logo width={300}/>
-            <div>
-              <button onClick={this.toggleBackgroundMusic} className="menu-button">
-                {"Music " + (this.state.backgroundMusic ? "on" : "off")}
-              </button>
-              <div className={"online-point " + onlineString}>
-                <span>{onlineString}</span>
-              </div>
-            </div>
-          </header>
-        )}
-        {this.state.screen === ScreenType.HOME && this.renderHomePage()}
-        {this.state.screen === ScreenType.STATS && this.renderStats()}
-        {this.state.screen === ScreenType.NEW_GAME && this.renderNewGamePage()}
-        {this.state.screen === ScreenType.GAME && this.renderGame()}
-        {this.state.screen === ScreenType.RESULTS && this.renderResults()}
-      </main>
+      <BrowserRouter>
+        <main>
+          {this.renderHeader()}
+          <Switch>
+            <Route path="/stats">
+              <StatsPage />
+            </Route>
+            <Route path="/play">
+              <PlayWrapper />
+            </Route>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </main>
+      </BrowserRouter>
     );
   }
 }

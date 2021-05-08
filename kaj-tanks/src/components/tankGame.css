@@ -16,6 +16,12 @@ main > header > div {
     flex-direction: column;
 }
 
+main > header > div > .menu-button {
+    margin-left: -5px;
+    width: 62px;
+    font-size: 12px;
+}
+
 .online-point {
     position: relative;
     width: 10px;

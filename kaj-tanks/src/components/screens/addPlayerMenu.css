@@ -85,3 +85,10 @@
   border: none;
   border-bottom: 2px solid black;
 }
+
+@media (max-width: 400px) {
+  .add-player-menu {
+    width: 98vw;
+    box-sizing: border-box;
+  }
+}

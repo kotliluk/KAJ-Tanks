@@ -1,3 +1,7 @@
+.player-table-container {
+    margin: 10px 0;
+}
+
 .img-td {
     width: 30px;
     height: 30px;
@@ -15,4 +19,20 @@
 .img-th {
     background-color: transparent !important;
     border: none !important;
+}
+
+@media (max-width: 600px) {
+    .player-table [data-column="avatar"], .player-table [data-column="dmg-received"] {
+        display: none;
+    }
+}
+
+@media (orientation: portrait) and (max-width: 600px) {
+    .player-table-container::after {
+        content: "Rotate to wider screen for more stats";
+        text-align: center;
+        color: var(--color-details-white);
+        display: block;
+        margin-top: 10px;
+    }
 }

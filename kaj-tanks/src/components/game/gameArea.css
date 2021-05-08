@@ -94,7 +94,7 @@ canvas {
   top: calc(100% + 4px);
   left: calc(50% - 10vw);
   height: 0;
-  width: 20vw;
+  width: 24vw;
   overflow: hidden;
   box-sizing: border-box;
 
@@ -153,7 +153,7 @@ canvas {
 
   .ammo-info-div .long-info-span {
     left: calc(50% - 7.5vw);
-    width: 15vw;
+    width: 18vw;
   }
 
   .ammo-info-div:hover .long-info-span {

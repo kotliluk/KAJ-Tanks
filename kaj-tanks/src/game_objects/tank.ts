@@ -9,7 +9,7 @@ import Projectile from "./projectile";
 
 /**
  * Tank for the GameArea.
- * It works with 2 postion/size scales:
+ * It works with 2 position/size scales:
  * - base scale for inner representation (saved position, collision computation)\
  * - ratio-scaled for printing on screen
  */

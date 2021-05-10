@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# Tanks 2D
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Téma mé semestrální práce pro KAJ je jednoduchá 2D hra. Půjde o lokální multiplayer, ve kterém
+se hráči budou střídat v ovládání svého tanku. Hráči se mohou pohybovat, měnit náklon děla a střílet.
+Ve hře jsou různé druhy munice, které se liší dostřelem, velikostí výbuchu a poškozením. Mimo tanky
+jsou na mapě přítomné i ničitelné překážky.
 
-## Available Scripts
+Hráči si mohou vytvořit stálý hráčský profil se vlastním avatarem, pro který se budou započítávat
+statistiky, nebo se do hry přidat s jednorázovým hráčem.
 
-In the project directory, you can run:
+Hra je dostupná [zde](https://kotliluk.github.io/KAJ-Tanks/).
 
-### `yarn start`
+## Ovládání
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Home**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Tlačítko **New Game** zobrazí výbšr hráčů pro novou hru.
 
-### `yarn test`
+Tlačítko **Stats** zobrazí statistiky uložených hráčů.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Tlačítko **Music on/off** zapne/vypne hudbu aplikace.
 
-### `yarn build`
+Logo **Tanks2D** je animované, zkuste vystřelit jeho náboje :)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Puntík vedle loga signalizuje připojení k internetu.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Stats**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Tabulka zobrazuje statistiky uložených hráčů.
 
-### `yarn eject`
+Po vyplnění unikátního jména v dolním poli lze vytvořit nový uložený hráč. K hráči je možné nahrát
+svůj vlastní PNG avatar.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**New Game**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Tlačítko **Quick player** přidá nového jednorázového hráče do hry. Je potřeba vyplnit jeho jméno.
+Jeho výsledky nebudou uloženy.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Tlačítko **Stored player** přidá hráče z uložených (viz **Stats**).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+U hráčů lze změnit barva tanku pro danou hru. Po přidání alespoň dvou hráčů a vyplnění jejich jmen
+hru zapnete pomocí tlačítka **Play**.
 
-## Learn More
+**Game**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Tankem pohybujete pomocí tlačítek okolo nápisu **MOVE**. Podobně nakláníte dělo tlačítky vedle **GUN**.
+Hodnota za **Wind** udává sílu větru, jeho směr je pak vyjádřen šípkami.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Tlačítky vpravo vybíráte použitou munici. Číslo v závorce udává počete dostupné munice u omezených
+nábojů. Posuvníkem pod výběrem náboje nastavíte sílu výstřelu. Při najetí nad název náboje se
+zobrazí blížší informace. Tlačítkem **Fire** vystřelíte.
+
+Boxy na spodku stránky ukazují statistiky jednotlivých hráčů.
+
+Po zničení předposledního hráče se zobrazí výsledky hry.
+
+## Návrh
+
+Pro implementaci jsem zvolil TypeScript kvůli typové kontrole a React pro
+jednoduché členění hierarchie obrazovek a komponent. Projekt je dělen na několik
+packages, nejdůležitější je **components**, kde jsou definované GUI komponenty, a
+**game_objects**, kde je definovaná heirarchie herních objektů pomocí ES6 tříd.
+
+## Body zadání
+
+V práci jsem se pokusil splnit následující body zadání:
+
+* **Dokumentace**
+* dokumentace - kód aplikace je komentován
+* **HTML 5**
+* validita 1 - validator.w3.org nehlásí žádné chyby
+* validita 2 - po celou dobu vývoje jsem aplikaci testoval v nových prohlížečích,
+nepouzivam zadne bleeding edge technologie
+* sémantické značky - věřím, že HTML struktura stránky je logická a správná, jednotlivé obrazovky
+jsou tvořeny section elementy
+* grafika SVG/Canvas - samotná hra využívá requestAnimationFrame smyčky na canvas, loga aplikace
+jsou v SVG s navěšenými posluchači (zkuste kliknout na náboje v logu stránky)
+* média audio/video - aplikace má podkladovou hudbu a zvuky výstřelů a explozí
+* formulářové prvky - při zadávání nových uložených hráčů kontoluji duplicitní jména, při nové hře
+kontroluji počet hráčů a jejich jména, využívám placeholders, více typů input (text, file, color,
+select), autofocus při přidávání hráčů
+* offline aplikace - aplikace funguje bez přístupu k internetu
+* **CSS**
+* pokročilé selektory - v CSS hojně využívám CSS třídy, nebo hierarchické zanořování, dále pak
+:hover, ::after, :first-child, atd.
+* vendor prefixy - pomocí vendor prefixů řeším custom styling scrollbarů
+* Transformace 2D/3D - využívám transformace v animaci náboje v logu (logo.css), nebo pro zvětšování
+tlačítek delete (addPlayerMenu.css, messageBox.css)
+* Transitions/animations - animuji výstřel náboje v logu po kliknutí (logo.css), pomocí transition
+zobrazuji blížší informace o nábojích po mouse hover (gameArea.css)
+* media queries - používám media queries pro rozumné zobrazení i na mobilních zařízeních,
+v gameArea.css dále ještě relativní jednotky pro poměrné vykreslení na různých obrazovkách
+* **JavaScript**
+* OOP přístup - celá aplikace hojně využívá třídy a dědičnost (např. herní objekty)
+* Použití frameworku - obrazovky aplikace využívají React
+* Použití pokročilých JS API - aplikace využívá local storage pro ukládání hráčů, File API pro
+nahrání obrázků hráčů, a DragNDrop pro přesouvání pořadí hráčů při NewGame
+* Funkční historie - pomocí React router aplikace podporuje 3 různé url adresy - lze se historií
+přesouvat mezi homepage/game/stats
+* ovládání médií - audio aplikace je spouštěno JavaScriptem buď automaticky (výstřely/exploze),
+nebo handlováním tlačítka music on/off
+* offline aplikace - aplikace rozpoznává online/offline stav a ukazuje ho puntíkem vedla loga
+* JS práce s SVG - na SVG logu jsou navěšeny posluchače, které nastavují animaci výstřelů
+* **Ostatní**
+* kompletnost - hra sice není nejrozsáhlejší, ale je plně funkční
+* estetika - k posouzení estetiky se neumim vyjadrit a nechám ho zcela na Vás :) 

@@ -15,10 +15,7 @@ interface ResultsPageState {}
 /**
  * Shows game results for given players.
  */
-export class ResultsPage extends React.Component<
-  ResultsPageProps,
-  ResultsPageState
-> {
+export class ResultsPage extends React.Component<ResultsPageProps, ResultsPageState> {
   render() {
     const players = sortPlayers(this.props.players);
     return (

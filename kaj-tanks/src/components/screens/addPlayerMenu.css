@@ -53,6 +53,8 @@
 
 .add-player-menu header button:hover {
   color: var(--color-details-red);
+  transition: ease-in-out;
+  transform: scale(1.2);
 }
 
 .add-player-menu label {

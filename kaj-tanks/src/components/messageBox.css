@@ -52,6 +52,7 @@
 }
 
 .message-box > button:hover {
+    color: var(--color-details-red);
     transition: ease-in-out;
     transform: scale(1.4);
     margin: -3px 0 0 0;

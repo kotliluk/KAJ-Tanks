@@ -111,6 +111,7 @@ export default class AddPlayerMenu extends React.Component<
               placeholder="fill your name"
               spellCheck={false}
               autoComplete={"off"}
+              autoFocus={true}
               maxLength={20}
             />
           </div>

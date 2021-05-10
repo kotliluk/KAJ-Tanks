@@ -47,6 +47,7 @@ main > header > div > .menu-button {
     background-color: var(--color-area-grey);
     color: var(--color-details-white);
     padding: 2px 5px;
+    border-radius: 6px;
 }
 
 .online-point:hover > span {

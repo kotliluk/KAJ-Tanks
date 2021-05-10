@@ -6,8 +6,7 @@ export class AudioPlayer {
   private static backgroundMusicAudio: HTMLAudioElement = AudioPlayer.initBackgroundMusic();
 
   private static initBackgroundMusic(): HTMLAudioElement {
-    const a = new Audio();
-    a.src = "background_music.mp3";
+    const a = new Audio("background_music.mp3");
     a.loop = true;
     a.volume = 0.4;
     return a;
@@ -19,8 +18,7 @@ export class AudioPlayer {
    * @param volume default volume is 1
    */
   public static shotSound(volume: number = 1): void {
-    const a = new Audio();
-    a.src = "tank_fire.mp3";
+    const a = new Audio("tank_fire.mp3");
     a.volume = volume;
     a.play();
   }
@@ -31,8 +29,7 @@ export class AudioPlayer {
    * @param volume default volume is 1
    */
   public static explosionSound(volume: number = 1): void {
-    const a = new Audio();
-    a.src = "explosion.mp3";
+    const a = new Audio("explosion.mp3");
     a.volume = volume;
     a.play();
   }

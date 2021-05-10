@@ -104,3 +104,5 @@ nebo handlováním tlačítka music on/off
 * **Ostatní**
 * kompletnost - hra sice není nejrozsáhlejší, ale je plně funkční
 * estetika - k posouzení estetiky se neumim vyjadrit a nechám ho zcela na Vás :) 
+
+Pokud byste nějaký bod považoval za nedostatečně splněný, pokusím se na něm zapracovat.
